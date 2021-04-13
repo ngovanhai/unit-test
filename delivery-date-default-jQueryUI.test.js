@@ -3,6 +3,11 @@ import {
   maximumDays,
   isValid,
   fixedDay,
+  checkIsLimitedOrderDay,
+  getMinDate,
+  increaseDay,
+  getListLimitedOrderDays,
+  checkIsDisableDays,
 } from "./delivery-date-default-jQueryUI.js";
 import {
   dataTestMiniMumdayAndMaximumDay,
@@ -16,6 +21,11 @@ import {
   settings,
   itemCart,
   currentCollection,
+  dataTestFixedDay,
+  dataTest_CheckIsLimitedOrderDay,
+  dataTestGetMindate,
+  DataGetListLimitedOrderDays,
+  dataTestCheckisDisableDays,
 } from "./dataTest.js";
 const expect = chai.expect;
 describe("function minimumDays() class FormProduct", () => {
@@ -454,46 +464,200 @@ describe("function isValid", () => {
   });
 });
 describe("function fixedDay()", () => {
-  let nowDate = new Date("Apr 13 2021 00:18:23 GMT+0700 (Indochina Time)");
-  //   const nowDate = new Date();
-  it(`The result return new Date() = ${nowDate} if  specificProducts = [] and specificCollections = []`, () => {
+  var clock = sinon.useFakeTimers(
+    new Date("Tue Apr 13 2021 09:07:50 GMT+0700 (Giờ Đông Dương)")
+  );
+  let now = new Date();
+  it(`The result return new Date() = ${now} if  specificProducts = [] and specificCollections = [] `, () => {
     let res = fixedDay(
       itemCart,
-      specificProducts,
-      specificCollections,
+      dataArrayEmpty,
+      dataArrayEmpty,
       settings,
       currentCollection
     );
-    let expectedOutput = nowDate;
+    let expectedOutput = new Date();
+    res = JSON.stringify(res);
+    expectedOutput = JSON.stringify(expectedOutput);
+    chai.assert.equal(expectedOutput, res, `== new Date ${expectedOutput}`);
+  });
+  it(`The result return newDate = ${new Date(
+    1618632470000
+  )} if item cart exits specificProducts ,specificCollections = [] , kind_of_delivery_date = shortest`, () => {
+    let res = fixedDay(
+      itemCart,
+      specificProducts,
+      dataArrayEmpty,
+      dataTestFixedDay.settingsShortest.settings,
+      currentCollection
+    );
+    let expectedOutput = new Date(1618632470000);
     res = JSON.stringify(res);
     expectedOutput = JSON.stringify(expectedOutput);
     chai.assert.equal(expectedOutput, res);
   });
-  it(`The result return new Date() = ${nowDate} if  specificProducts = [] and specificCollections = [] `, () => {
+  it(`The result return newDate = ${new Date(
+    1618279670000
+  )} if item cart exits specificProducts ,specificCollections = [] , kind_of_delivery_date = longest`, () => {
     let res = fixedDay(
       itemCart,
+      specificProducts,
       dataArrayEmpty,
-      dataArrayEmpty,
-      settings,
+      dataTestFixedDay.settingsLongest.settings,
       currentCollection
     );
-    let expectedOutput = nowDate;
+    let expectedOutput = new Date(1618279670000);
     res = JSON.stringify(res);
     expectedOutput = JSON.stringify(expectedOutput);
-    chai.assert.equal(expectedOutput, res, `== new Date ${expectedOutput}`);
+    chai.assert.equal(expectedOutput, res);
   });
-  it(`The result return new Date() = ${nowDate} if  cart item = []`, () => {
+  it(`The result return newDate = ${new Date(
+    1618765200000
+  )} if itemCart = [] ,currentCollection exits  specificCollections  , kind_of_delivery_date = longest`, () => {
     let res = fixedDay(
       dataArrayEmpty,
       specificProducts,
       specificCollections,
-      settings,
+      dataTestFixedDay.settingsLongest.settings,
       currentCollection
     );
-    let expectedOutput = nowDate;
+    let expectedOutput = new Date(1618765200000);
     res = JSON.stringify(res);
     expectedOutput = JSON.stringify(expectedOutput);
-    chai.assert.equal(expectedOutput, res, `== new Date ${expectedOutput}`);
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return newDate =  ${new Date(
+    1619024400000
+  )} if itemCart = [] ,currentCollection exits  specificCollections  , kind_of_delivery_date = shortest`, () => {
+    let res = fixedDay(
+      dataArrayEmpty,
+      specificProducts,
+      specificCollections,
+      dataTestFixedDay.settingsShortest.settings,
+      currentCollection
+    );
+    let expectedOutput = new Date(1619024400000);
+    res = JSON.stringify(res);
+    expectedOutput = JSON.stringify(expectedOutput);
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return newDate =  ${new Date(
+    1619024400000
+  )} if itemCart,currentCollection exits specificProducts, specificCollections,  kind_of_delivery_date = shortest`, () => {
+    let res = fixedDay(
+      itemCart,
+      specificProducts,
+      specificCollections,
+      dataTestFixedDay.settingsShortest.settings,
+      currentCollection
+    );
+    let expectedOutput = new Date(1619024400000);
+    res = JSON.stringify(res);
+    expectedOutput = JSON.stringify(expectedOutput);
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return newDate = ${new Date(
+    1618279670000
+  )} if itemCart,currentCollection exits specificProducts, specificCollections,  kind_of_delivery_date = longest`, () => {
+    let res = fixedDay(
+      itemCart,
+      specificProducts,
+      specificCollections,
+      dataTestFixedDay.settingsLongest.settings,
+      currentCollection
+    );
+    let expectedOutput = new Date(1618279670000);
+    res = JSON.stringify(res);
+    expectedOutput = JSON.stringify(expectedOutput);
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return null if specificProducts is number`, () => {
+    let res = fixedDay(
+      itemCart,
+      dataNumber,
+      specificCollections,
+      dataTestFixedDay.settingsLongest.settings,
+      currentCollection
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return null if specificProducts is string`, () => {
+    let res = fixedDay(
+      itemCart,
+      dataString,
+      specificCollections,
+      dataTestFixedDay.settingsLongest.settings,
+      currentCollection
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return null if specificCollections is number`, () => {
+    let res = fixedDay(
+      itemCart,
+      specificProducts,
+      dataNumber,
+      dataTestFixedDay.settingsLongest.settings,
+      currentCollection
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return null if specificCollections is string`, () => {
+    let res = fixedDay(
+      itemCart,
+      specificProducts,
+      dataString,
+      dataTestFixedDay.settingsLongest.settings,
+      currentCollection
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return null if specificCollections is string`, () => {
+    let res = fixedDay(
+      itemCart,
+      specificProducts,
+      dataString,
+      dataTestFixedDay.settingsLongest.settings,
+      currentCollection
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return null if specificCollections is string`, () => {
+    let res = fixedDay(
+      itemCart,
+      specificProducts,
+      dataString,
+      dataTestFixedDay.settingsLongest.settings,
+      currentCollection
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return null if settings.kind_of_delivery_date is string`, () => {
+    let res = fixedDay(
+      itemCart,
+      specificProducts,
+      dataString,
+      dataString,
+      currentCollection
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return null if settings.kind_of_delivery_date is number`, () => {
+    let res = fixedDay(
+      itemCart,
+      specificProducts,
+      dataString,
+      dataNumber,
+      currentCollection
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
   });
   it(`The result return  null if cart item is Number`, () => {
     let res = fixedDay(
@@ -507,9 +671,9 @@ describe("function fixedDay()", () => {
     res = JSON.stringify(res);
     chai.assert.equal(expectedOutput, res);
   });
-  it(`The result return  null if cart item is String`, () => {
+  it(`The result return  null if cart item is strings`, () => {
     let res = fixedDay(
-      dataString.string,
+      dataString,
       specificProducts,
       specificCollections,
       settings,
@@ -519,56 +683,274 @@ describe("function fixedDay()", () => {
     res = JSON.stringify(res);
     chai.assert.equal(expectedOutput, res);
   });
-  it(`The result return ${nowDate} if item have specificProdcuts , specificCollection empty , fixed_day_start = today,kindOfDeliveryDate = shortest`, () => {
+  it(`The result return null if  specificProducts = [] specificCollections.fixed_day_start is string `, () => {
     let res = fixedDay(
       itemCart,
-      specificProducts,
+      dataArrayEmpty,
+      dataTestFixedDay.specificCollections_FixedDaystartString,
+      settings,
+      currentCollection
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return null if  specificProducts = [] specificCollections.fixed_day_start wrong date format `, () => {
+    let res = fixedDay(
+      itemCart,
+      dataArrayEmpty,
+      dataTestFixedDay.specificCollections_FixedDaystart_WrongDateFormat,
+      settings,
+      currentCollection
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+
+  it(`The result return null if specificCollections = [] , specificProducts.fixed_day_start is strings `, () => {
+    let res = fixedDay(
+      itemCart,
+      dataTestFixedDay.specificProducts_FixedDaystartString,
       dataArrayEmpty,
       settings,
       currentCollection
     );
-    let expectedOutput = nowDate;
-    res = JSON.stringify(res);
-    expectedOutput = JSON.stringify(nowDate);
+    let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
   });
-  it(`The result return ${nowDate} if item have specificProdcuts , specificCollection empty , fixed_day_start = today,kindOfDeliveryDate = shortest`, () => {
+  it(`The result return null if specificCollections = [] , specificProducts.fixed_day_start wrong date format`, () => {
     let res = fixedDay(
       itemCart,
-      specificProducts,
+      dataTestFixedDay.specificProducts_FixedDaystartString_WrongDateFormat,
       dataArrayEmpty,
       settings,
       currentCollection
     );
-    let expectedOutput = nowDate;
-    res = JSON.stringify(res);
-    expectedOutput = JSON.stringify(nowDate);
+    let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
   });
-  it(`The result return ${nowDate} if item have specificProdcuts , specificCollection empty , fixed_day_start = today,kindOfDeliveryDate = shortest`, () => {
-    let res = fixedDay(
-      itemCart,
-      specificProducts,
+});
+describe("function checkIsLimitedOrderDay()", () => {
+  it("The result return true if date exits limitedOrderDays", () => {
+    let res = checkIsLimitedOrderDay(
+      dataTest_CheckIsLimitedOrderDay.limit.date,
+      dataTest_CheckIsLimitedOrderDay.limit.limitedOrderDays
+    );
+    let expectedOutput = true;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The result return false if date not exits limitedOrderDays", () => {
+    let res = checkIsLimitedOrderDay(
+      dataTest_CheckIsLimitedOrderDay.notLimit.date,
+      dataTest_CheckIsLimitedOrderDay.notLimit.limitedOrderDays
+    );
+    let expectedOutput = false;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The result return null if date is strings ", () => {
+    let res = checkIsLimitedOrderDay(
+      dataString,
+      dataTest_CheckIsLimitedOrderDay.notLimit.limitedOrderDays
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The result return null if date is number ", () => {
+    let res = checkIsLimitedOrderDay(
+      dataNumber,
+      dataTest_CheckIsLimitedOrderDay.notLimit.limitedOrderDays
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The result return null if LimitOrder is number ", () => {
+    let res = checkIsLimitedOrderDay(
+      dataTest_CheckIsLimitedOrderDay.limit.date,
+      dataNumber
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The result return null if LimitOrder is string ", () => {
+    let res = checkIsLimitedOrderDay(
+      dataTest_CheckIsLimitedOrderDay.limit.date,
+      dataString
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The result return null if LimitOrder is array empty ", () => {
+    let res = checkIsLimitedOrderDay(
+      dataTest_CheckIsLimitedOrderDay.limit.date,
+      dataArrayEmpty
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+});
+describe("function getMindate()", () => {
+  var clock = sinon.useFakeTimers(
+    new Date("Tue Apr 13 2021 09:07:50 GMT+0700 (Giờ Đông Dương)")
+  );
+  it(`The result return ${new Date(
+    new Date().setHours(0, 0, 0, 0)
+  )} if date exits limitedOrderDays`, () => {
+    let res = getMinDate(dataTestGetMindate.disableDays);
+    let expectedOutput = new Date(new Date().setHours(0, 0, 0, 0));
+    res = JSON.stringify(res);
+    expectedOutput = JSON.stringify(expectedOutput);
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return ${new Date(
+    new Date().setHours(0, 0, 0, 0)
+  )} if date exits disableDays empty`, () => {
+    let res = getMinDate(dataArrayEmpty);
+    let expectedOutput = new Date(new Date().setHours(0, 0, 0, 0));
+    res = JSON.stringify(res);
+    expectedOutput = JSON.stringify(expectedOutput);
+    chai.assert.equal(expectedOutput, res);
+  });
+  const inCeadays = increaseDay(new Date(new Date().setHours(0, 0, 0, 0)), 1);
+  it(`The result return ${inCeadays} if  day equal disableDay`, () => {
+    let res = getMinDate(dataTestGetMindate.disableDaysEqualDay).getTime();
+    let expectedOutput = inCeadays.getTime();
+    chai.assert.equal(expectedOutput, res);
+  });
+
+  it(`The result return null if date exits disableDays is Strings`, () => {
+    let res = getMinDate(dataString);
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return null if date exits disableDays is number`, () => {
+    let res = getMinDate(dataString);
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return null if date exits disableDays is number`, () => {
+    let res = getMinDate(dataString);
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it(`The result return null if date exits disableDays wrong fomat date `, () => {
+    let res = getMinDate(dataTestGetMindate.disableDaysWrongFomatDate);
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+});
+describe("function getListLimitedOrderDays() ", () => {
+  it("the result [] if  totalOrders is empty", () => {
+    let res = getListLimitedOrderDays(
       dataArrayEmpty,
-      settings,
-      currentCollection
-    );
-    let expectedOutput = nowDate;
-    res = JSON.stringify(res);
-    expectedOutput = JSON.stringify(nowDate);
+      DataGetListLimitedOrderDays.settings
+    ).length;
+    let expectedOutput = [];
+    expectedOutput = expectedOutput.length;
     chai.assert.equal(expectedOutput, res);
   });
-  it(`The result return ${nowDate} if item have specificProdcuts , specificCollection empty , fixed_day_start = today,kindOfDeliveryDate = shortest`, () => {
-    let res = fixedDay(
-      itemCart,
-      specificProducts,
-      specificCollections,
-      settings,
-      currentCollection
+  it("the result [] if  totalOrders is number", () => {
+    let res = getListLimitedOrderDays(
+      dataNumber,
+      DataGetListLimitedOrderDays.settings
+    ).length;
+    let expectedOutput = [];
+    expectedOutput = expectedOutput.length;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("the result [] if  totalOrders is strings", () => {
+    let res = getListLimitedOrderDays(
+      dataString,
+      DataGetListLimitedOrderDays.settings
+    ).length;
+    let expectedOutput = [];
+    expectedOutput = expectedOutput.length;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("the result 1 if  totalOrders is totalOrders isArray totalOrders > 0", () => {
+    let res = getListLimitedOrderDays(
+      DataGetListLimitedOrderDays.totalOrders,
+      DataGetListLimitedOrderDays.settings
+    ).length;
+    let expectedOutput = 1;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("the result [] if Wrong_delivery_date", () => {
+    let res = getListLimitedOrderDays(
+      DataGetListLimitedOrderDays.totalOrdersWrongDeliveryDate,
+      DataGetListLimitedOrderDays.settings
+    ).length;
+    let expectedOutput = 0;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("the result [] if Wrong_delivery_date", () => {
+    let res = getListLimitedOrderDays(
+      DataGetListLimitedOrderDays.totalOrdersWrongDeliveryDate,
+      DataGetListLimitedOrderDays.settings_OderLimit_string
+    ).length;
+    let expectedOutput = 0;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("the result [] if Wrong_delivery_date", () => {
+    let res = getListLimitedOrderDays(
+      DataGetListLimitedOrderDays.totalOrdersWrongDeliveryDate,
+      DataGetListLimitedOrderDays.settings_OderLimit_negative
+    ).length;
+    let expectedOutput = 0;
+    chai.assert.equal(expectedOutput, res);
+  });
+});
+describe("function checkIsDisableDays() ", () => {
+  it("the result true if  day exits disableDays", () => {
+    let res = checkIsDisableDays(
+      dataTestCheckisDisableDays.day,
+      dataTestCheckisDisableDays.disableDays
     );
-    let expectedOutput = nowDate;
-    res = JSON.stringify(res);
-    expectedOutput = JSON.stringify(nowDate);
+    console.log("res", res);
+    let expectedOutput = true;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("the result false if  day not exits disableDays", () => {
+    let res = checkIsDisableDays(
+      dataTestCheckisDisableDays.dayNotExitsDisableDays,
+      dataTestCheckisDisableDays.disableDays
+    );
+    let expectedOutput = false;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("the result false if  day is disableDays empty", () => {
+    let res = checkIsDisableDays(
+      dataTestCheckisDisableDays.day,
+      dataArrayEmpty
+    );
+    let expectedOutput = false;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("the result false if  day is Number", () => {
+    let res = checkIsDisableDays(
+      dataNumber,
+      dataTestCheckisDisableDays.disableDays
+    );
+    let expectedOutput = false;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("the result false if  day is strings", () => {
+    let res = checkIsDisableDays(
+      dataString.string,
+      dataTestCheckisDisableDays.disableDays
+    );
+    let expectedOutput = false;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("the result false if  disableDays is empty", () => {
+    let res = checkIsDisableDays(
+      dataTestCheckisDisableDays.day,
+      dataArrayEmpty
+    );
+    let expectedOutput = false;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("the result false if  disableDays is not array", () => {
+    let res = checkIsDisableDays(dataTestCheckisDisableDays.day, dataNumber);
+    let expectedOutput = false;
     chai.assert.equal(expectedOutput, res);
   });
 });

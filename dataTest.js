@@ -28,7 +28,7 @@ export const specificProducts = [
     shop: "ngo-van-hai.myshopify.com",
   },
   {
-    fixed_day_start: "Tue Apr 13 2021 00:37:58 GMT+0700 (Indochina Time)",
+    fixed_day_start: "Tue Apr 17 2021 11:07:50 GMT+0700 (Giờ Đông Dương)",
     id: "2",
     maximum_days: "2",
     minimum_days: "2",
@@ -38,7 +38,7 @@ export const specificProducts = [
     shop: "ngo-van-hai.myshopify.com",
   },
   {
-    fixed_day_start: "today",
+    fixed_day_start: "strings",
     id: "3",
     maximum_days: "2",
     minimum_days: "7",
@@ -68,6 +68,26 @@ export const specificCollections = [
     maximum_days: "2",
     minimum_days: "5",
     shop: "ngo-van-hai.myshopify.com",
+  },
+  {
+    id: "10",
+    shop: "ngo-van-hai.myshopify.com",
+    collection_id: "264481177771",
+    collection_title: "dong ho",
+    collection_handle: "dong-ho",
+    minimum_days: "9",
+    maximum_days: "4",
+    fixed_day_start: "Thu Apr 22 2021 00:00:00 GMT+0700 (Giờ Đông Dương)",
+  },
+  {
+    id: "11",
+    shop: "ngo-van-hai.myshopify.com",
+    collection_id: "264481210539",
+    collection_title: "ao",
+    collection_handle: "ao",
+    minimum_days: "5",
+    maximum_days: "2",
+    fixed_day_start: "Mon Apr 19 2021 00:00:00 GMT+0700 (Giờ Đông Dương)",
   },
 ];
 
@@ -138,7 +158,7 @@ export const itemCart = [
     grams: 1,
     vendor: "SAJARO INVITATIONS",
     taxable: false,
-    product_id: 6111707267243,
+    product_id: 6111707005099,
     product_has_only_default_variant: false,
     gift_card: false,
     final_price: 400,
@@ -185,7 +205,7 @@ export const itemCart = [
     grams: 1,
     vendor: "SAJARO INVITATIONS",
     taxable: false,
-    product_id: 6111707627691,
+    product_id: 6111525077163,
     product_has_only_default_variant: false,
     gift_card: false,
     final_price: 700,
@@ -491,4 +511,242 @@ export const dataTestIsValid = {
   MinimumDaySUderfined: -1,
   isEmptyFalse: false,
   isEmptyTrue: false,
+};
+export const dataTestFixedDay = {
+  settingsLongest: {
+    settings: {
+      kind_of_delivery_date: "longest",
+    },
+  },
+  settingsShortest: {
+    settings: {
+      kind_of_delivery_date: "shortest",
+    },
+  },
+  specificCollections_FixedDaystartString: [
+    {
+      collection_handle: "frontpage",
+      collection_id: "238612971691",
+      collection_title: "Home page",
+      fixed_day_start: "string",
+      id: "1",
+      maximum_days: "2",
+      minimum_days: "4",
+      shop: "ngo-van-hai.myshopify.com",
+    },
+    {
+      collection_handle: "tets",
+      collection_id: "263838236843",
+      collection_title: "tets",
+      fixed_day_start: "string",
+      id: "2",
+      maximum_days: "2",
+      minimum_days: "5",
+      shop: "ngo-van-hai.myshopify.com",
+    },
+    {
+      id: "10",
+      shop: "ngo-van-hai.myshopify.com",
+      collection_id: "264481177771",
+      collection_title: "dong ho",
+      collection_handle: "dong-ho",
+      minimum_days: "9",
+      maximum_days: "4",
+      fixed_day_start: "string",
+    },
+    {
+      id: "11",
+      shop: "ngo-van-hai.myshopify.com",
+      collection_id: "264481210539",
+      collection_title: "ao",
+      collection_handle: "ao",
+      minimum_days: "5",
+      maximum_days: "2",
+      fixed_day_start: "string",
+    },
+  ],
+  specificCollections_FixedDaystart_WrongDateFormat: [
+    {
+      collection_handle: "frontpage",
+      collection_id: "238612971691",
+      collection_title: "Home page",
+      fixed_day_start: "Thu Apr 222021 00:00:00 GMT+0700 (Giờ Đông Dương)",
+      id: "1",
+      maximum_days: "2",
+      minimum_days: "4",
+      shop: "ngo-van-hai.myshopify.com",
+    },
+    {
+      collection_handle: "tets",
+      collection_id: "263838236843",
+      collection_title: "tets",
+      fixed_day_start: "Thu Apr 222021 00:00:00 GMT+0700 (Giờ Đông Dương)",
+      id: "2",
+      maximum_days: "2",
+      minimum_days: "5",
+      shop: "ngo-van-hai.myshopify.com",
+    },
+    {
+      id: "10",
+      shop: "ngo-van-hai.myshopify.com",
+      collection_id: "264481177771",
+      collection_title: "dong ho",
+      collection_handle: "dong-ho",
+      minimum_days: "9",
+      maximum_days: "4",
+      fixed_day_start: "Thu Apr 222021 00:00:00 GMT+0700 (Giờ Đông Dương)",
+    },
+    {
+      id: "11",
+      shop: "ngo-van-hai.myshopify.com",
+      collection_id: "264481210539",
+      collection_title: "ao",
+      collection_handle: "ao",
+      minimum_days: "5",
+      maximum_days: "2",
+      fixed_day_start: "Thu Apr 222021 00:00:00 GMT+0700 (Giờ Đông Dương)",
+    },
+  ],
+
+  specificProducts_FixedDaystartString: [
+    {
+      fixed_day_start: "string",
+      id: "1",
+      maximum_days: "7",
+      minimum_days: "3",
+      product_handle:
+        "swatch-originals-tresorama-silver-dial-stainless-steel-ladies-watch-ge707b",
+      product_id: "6111525077163",
+      product_title:
+        "Swatch Originals Tresorama Silver Dial Stainless Steel Ladies Watch GE707B",
+      shop: "ngo-van-hai.myshopify.com",
+    },
+    {
+      fixed_day_start: "string",
+      id: "2",
+      maximum_days: "2",
+      minimum_days: "2",
+      product_handle: "swatch-skinscreen-unisex-watch-svom101ga",
+      product_id: "6111525241003",
+      product_title: "Swatch Skinscreen Unisex Watch SVOM101GA",
+      shop: "ngo-van-hai.myshopify.com",
+    },
+    {
+      fixed_day_start: "strings",
+      id: "3",
+      maximum_days: "2",
+      minimum_days: "7",
+      product_handle: "swatch-skinnoir-unisex-watch-svub100",
+      product_id: "6111525372075",
+      product_title: "Swatch SKINNOIR Unisex Watch SVUB100",
+      shop: "ngo-van-hai.myshopify.com",
+    },
+  ],
+  specificProducts_FixedDaystartString_WrongDateFormat: [
+    {
+      fixed_day_start: "Thu Apr 222021 00:00:00 GMT+0700 (Giờ Đông Dương)",
+      id: "1",
+      maximum_days: "7",
+      minimum_days: "3",
+      product_handle:
+        "swatch-originals-tresorama-silver-dial-stainless-steel-ladies-watch-ge707b",
+      product_id: "6111525077163",
+      product_title:
+        "Swatch Originals Tresorama Silver Dial Stainless Steel Ladies Watch GE707B",
+      shop: "ngo-van-hai.myshopify.com",
+    },
+    {
+      fixed_day_start: "Thu Apr 222021 00:00:00 GMT+0700 (Giờ Đông Dương)",
+      id: "2",
+      maximum_days: "2",
+      minimum_days: "2",
+      product_handle: "swatch-skinscreen-unisex-watch-svom101ga",
+      product_id: "6111525241003",
+      product_title: "Swatch Skinscreen Unisex Watch SVOM101GA",
+      shop: "ngo-van-hai.myshopify.com",
+    },
+    {
+      fixed_day_start: "Thu Apr 222021 00:00:00 GMT+0700 (Giờ Đông Dương)",
+      id: "3",
+      maximum_days: "2",
+      minimum_days: "7",
+      product_handle: "swatch-skinnoir-unisex-watch-svub100",
+      product_id: "6111525372075",
+      product_title: "Swatch SKINNOIR Unisex Watch SVUB100",
+      shop: "ngo-van-hai.myshopify.com",
+    },
+  ],
+};
+export const dataTest_CheckIsLimitedOrderDay = {
+  limit: {
+    date: new Date("Sun Apr 24 2021 00:00:00 GMT+0700 (Indochina Time)"),
+    limitedOrderDays: [
+      new Date("Sat Apr 24 2021 00:00:00 GMT+0700 (Indochina Time)"),
+    ],
+  },
+  notLimit: {
+    date: new Date("Sun Apr 24 2021 00:00:00 GMT+0700 (Indochina Time)"),
+    limitedOrderDays: [
+      new Date("Sat Apr 25 2021 00:00:00 GMT+0700 (Indochina Time)"),
+    ],
+  },
+};
+export const dataTestGetMindate = {
+  disableDays: [new Date("Sat Apr 25 2021 00:00:00 GMT+0700 (Indochina Time)")],
+  disableDaysEqualDay: [
+    new Date("Tue Apr 13 2021 09:07:50 GMT+0700 (Giờ Đông Dương)"),
+  ],
+  disableDaysWrongFomatDate: [
+    new Date("Sat Apr 252021 00:00:00 GMT+0700 (Indochina Time)"),
+  ],
+};
+export const DataGetListLimitedOrderDays = {
+  totalOrders: [
+    {
+      id: "1",
+      shop: "ngo-van-hai.myshopify.com",
+      delivery_date: "04/24/2021",
+      total_orders: "1",
+      order_ids: "1,2,3,5,5",
+    },
+    {
+      id: "2",
+      shop: "ngo-van-hai.myshopify.com",
+      delivery_date: "05/24/2021",
+      total_orders: "4",
+      order_ids: "1,2,3,5,5",
+    },
+  ],
+  totalOrdersWrongDeliveryDate: [
+    {
+      id: "1",
+      shop: "ngo-van-hai.myshopify.com",
+      delivery_date: "04-24/2021",
+      total_orders: "6",
+      order_ids: "1,2,3,5,5",
+    },
+    {
+      id: "2",
+      shop: "ngo-van-hai.myshopify.com",
+      delivery_date: "05-24/2021",
+      total_orders: "4",
+      order_ids: "1,2,3,5,5",
+    },
+  ],
+  settings: {
+    order_limit: 2,
+  },
+  settings_OderLimit_negative: {
+    order_limit: -1,
+  },
+  settings_OderLimit_string: {
+    order_limit: "string",
+  },
+};
+export const dataTestCheckisDisableDays = {
+  disableDays: [new Date("Sat Apr 25 2021 00:00:00 GMT+0700 (Indochina Time)")],
+  day: new Date("Sat Apr 25 2021 00:00:00 GMT+0700 (Indochina Time)"),
+  dayNotExitsDisableDays: new Date(
+    "Sat Apr 26 2021 00:00:00 GMT+0700 (Indochina Time)"
+  ),
 };
