@@ -190,16 +190,6 @@ export const checkIsDisableDays = (day, disableDays) => {
   return isDisable;
 };
 
-export const increaseDay = (day, time) => {
-  if (time > 0) {
-    let d = new Date(day);
-    d.setDate(d.getDate() + Number(time));
-    d = new Date(d);
-    return d;
-  } else {
-    return 0;
-  }
-};
 export const checkIsLimitedOrderDay = (date, limitedOrderDays) => {
   const isDisable = limitedOrderDays.some((disableDay) => {
     return (
@@ -244,7 +234,6 @@ export const convertDateToEnglish = (source, settings) => {
   else return undefined;
 };
 export const otFormatDate = (otDate) => {
-
   // khai bao date tren this roi call xuong
   var d = new Date(otDate),
     month = "" + (d.getMonth() + 1),
@@ -325,7 +314,6 @@ const calcIncreaseDays = (workingDay, currentDate) => {
   }
 }
 export const getCurrentDate = (fixedDay, settings) => {
-  console.log("fixedDay", fixedDay);
   const clock = sinon.useFakeTimers(
     new Date("Tue Apr 13 2021 00:00:00 GMT+07 00 (Giờ Đông Dương)")
   );
@@ -344,7 +332,6 @@ export const getCurrentDate = (fixedDay, settings) => {
   ) {
     return new Date();
   }
-  console.log("timezoneOffset", timezoneOffset);
   let timezone = ((rawTimezone) => {
     const timeGMT = rawTimezone.substring(
       rawTimezone.lastIndexOf("(") + 1,
@@ -353,22 +340,98 @@ export const getCurrentDate = (fixedDay, settings) => {
     const timeGMTSplit = timeGMT.split("");
     let hour =
       Number(timeGMTSplit[3] + timeGMTSplit[4] + timeGMTSplit[5]) * -1;
-    console.log("hour", hour);
     let minute = Number(timeGMTSplit[7] + timeGMTSplit[8]);
     if (minute === 30) minute = 0.5;
-    console.log("minute", minute);
     const timezone = hour + minute;
     const timezoneToMinute = timezone * 60;
     return timezoneToMinute;
   })(timezoneOffset);
-  console.log("timezone", timezone);
-  console.log("new Date().getTimezoneOffset()", new Date().getTimezoneOffset());
   let localTimezone = new Date().getTimezoneOffset();
   let diffMinutes = timezone - localTimezone;
   let diffMilliSeconds = diffMinutes * 60 * 1000;
   let localTime = new Date().getTime();
   let exactTime = localTime - diffMilliSeconds;
-  console.log("date", new Date(exactTime));
   return new Date(exactTime);
 }
+export const checkForUpdate = (newDate, settings, deliveryDate) => {
+  let canUpdate = true;
+  if (deliveryDate && newDate) {
+    const oldDate = deliveryDate;
+    const kindOfDeliveryDate = settings.kind_of_delivery_date;
+    switch (kindOfDeliveryDate) {
+      case "longest":
+        if (new Date(newDate).getTime() < new Date(oldDate).getTime()) {
+          canUpdate = false;
+        }
+        break;
+      case "shortest":
+        if (new Date(newDate).getTime() > new Date(oldDate).getTime()) {
+          canUpdate = false;
+        }
+        break;
+      default:
+        break;
+    }
+  }
+  if (canUpdate) {
+    return JSON.stringify({ selectedDate: newDate, upadte: true })
+  }
+  else {
+    return JSON.stringify({ upadte: false })
+  }
+}
+
+export const calculateEndDay = (startDay, inputMaximumDays, comparison_Results) => {
+  let endDay = startDay;
+  let disableDays = [];
+  let maximumDays = inputMaximumDays;
+  let diffDays = 1;
+  while (diffDays < maximumDays) {
+    diffDays += 1;
+    endDay = increaseDay(endDay, 1);
+    if (comparison_Results) {
+      maximumDays += 1;
+      disableDays.push(endDay);
+    }
+  }
+  return JSON.stringify({
+    day: endDay,
+    disableDays,
+  });
+
+}
+
+
+export const checkIsHoliday = (date, holidays) => {
+  const currentTime = new Date(date.setHours(0, 0, 0, 0)).getTime();
+  console.log("currentTime", currentTime);
+  return holidays.some(
+    (holiday) =>
+      new Date(
+        convertOldToNewFormatDate(holiday.start_date) + " 00:00:00"
+      ).getTime() <= currentTime &&
+      currentTime <=
+      new Date(
+        convertOldToNewFormatDate(holiday.end_date) + " 23:59:59"
+      ).getTime()
+  );
+}
+export const checkIsDayOff = (date) => {
+  return this.workingDay.some(
+    (day) => day.day == date.getDay() && day.enable == 0
+  );
+}
+export const increaseDay = (day, time) => {
+
+  if (time > 0) {
+    let d = new Date(day);
+    d.setDate(d.getDate() + Number(time));
+    d = new Date(d);
+    return d;
+  } else {
+    return 0;
+  }
+}
+
+
 

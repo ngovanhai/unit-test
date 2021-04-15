@@ -13,7 +13,10 @@ import {
     convertDateToEnglish,
     convertDisableDaysToEnglishDate,
     getMinimumDays,
-    getCurrentDate
+    getCurrentDate,
+    calculateEndDay,
+    checkForUpdate,
+    checkIsHoliday
 } from "./delivery-date-default-jQueryUI.js";
 import {
     dataTestMiniMumdayAndMaximumDay,
@@ -38,6 +41,15 @@ import {
     dataTestConvertDisableDaysToEnglishDate,
     dataTestGetMinimumDays,
     dataTestGetCurrentDate,
+    DataCalculateEndDay,
+    boolenTrue,
+    boolenFalse,
+    dataTestCheckForUpdate,
+    dataUnderfined,
+    dataNumberNegative,
+    dataTestIncreaseDay,
+    dataTestCalculateEndDay,
+    dataTestHoliday,
 } from "./dataTest.js";
 const expect = chai.expect;
 describe("function minimumDays() class FormProduct", () => {
@@ -803,8 +815,7 @@ describe("function getMindate()", () => {
     var clock = sinon.useFakeTimers(
         new Date("Tue Apr 13 2021 09:07:50 GMT+0700 (Giờ Đông Dương)")
     );
-    it(`The result return ${new Date(
-        new Date().setHours(0, 0, 0, 0)
+    it(`The result return ${new Date(new Date().setHours(0, 0, 0, 0)
     )} if date exits limitedOrderDays`, () => {
         let res = getMinDate(dataTestGetMindate.disableDays);
         let expectedOutput = new Date(new Date().setHours(0, 0, 0, 0));
@@ -812,8 +823,7 @@ describe("function getMindate()", () => {
         expectedOutput = JSON.stringify(expectedOutput);
         chai.assert.equal(expectedOutput, res);
     });
-    it(`The result return ${new Date(
-        new Date().setHours(0, 0, 0, 0)
+    it(`The result return ${new Date(new Date().setHours(0, 0, 0, 0)
     )} if date exits disableDays empty`, () => {
         let res = getMinDate(dataArrayEmpty);
         let expectedOutput = new Date(new Date().setHours(0, 0, 0, 0));
@@ -827,7 +837,6 @@ describe("function getMindate()", () => {
         let expectedOutput = inCeadays.getTime();
         chai.assert.equal(expectedOutput, res);
     });
-
     it(`The result return null if date exits disableDays is Strings`, () => {
         let res = getMinDate(dataString);
         let expectedOutput = null;
@@ -976,17 +985,53 @@ describe('function otFomatDate()', () => {
         let expectedOutput = "2021-10-21";
         chai.assert.equal(expectedOutput, res);
     });
-    it("the result 2021-04-01 if  disableDays is strings", () => {
-        let res = otFormatDate(dataTestOtFomatDate.date4);
-        let expectedOutput = "2021-04-01";
-        chai.assert.equal(expectedOutput, res);
-    });
     it("the result null if  date = 10112021", () => {
         let res = otFormatDate(dataTestOtFomatDate.date3);
         let expectedOutput = "2021-10-21";
         chai.assert.equal(expectedOutput, res);
     });
+    it("the result 2021-04-01 if  disableDays is strings", () => {
+        let res = otFormatDate(dataTestOtFomatDate.date4);
+        let expectedOutput = "2021-04-01";
+        chai.assert.equal(expectedOutput, res);
+    });
 
+    it("the result null if  date  = 32/5/2021", () => {
+        let res = otFormatDate(dataTestOtFomatDate.date5);
+        let expectedOutput = null;
+        chai.assert.equal(expectedOutput, res);
+    });
+
+    it("the result null if  date  = -1/5/2021", () => {
+        let res = otFormatDate(dataTestOtFomatDate.date6);
+        let expectedOutput = null;
+        chai.assert.equal(expectedOutput, res);
+    });
+    it("the result null if  date  = 11/-1/2021", () => {
+        let res = otFormatDate(dataTestOtFomatDate.date7);
+        let expectedOutput = null;
+        chai.assert.equal(expectedOutput, res);
+    });
+    it("the result null if  date  = 11/13/-1", () => {
+        let res = otFormatDate(dataTestOtFomatDate.date9);
+        let expectedOutput = null;
+        chai.assert.equal(expectedOutput, res);
+    });
+    it("the result null if  date  = string/13/-1", () => {
+        let res = otFormatDate(dataTestOtFomatDate.date10);
+        let expectedOutput = null;
+        chai.assert.equal(expectedOutput, res);
+    });
+    it("the result null if  date  = string/13/-1", () => {
+        let res = otFormatDate(dataTestOtFomatDate.date11);
+        let expectedOutput = null;
+        chai.assert.equal(expectedOutput, res);
+    });
+    it("the result null if  date  = 10/10/string", () => {
+        let res = otFormatDate(dataTestOtFomatDate.date12);
+        let expectedOutput = null;
+        chai.assert.equal(expectedOutput, res);
+    });
     it("the result null if  date  = number", () => {
         let res = otFormatDate(dataNumber);
         let expectedOutput = null;
@@ -1004,23 +1049,42 @@ describe('function convertOldToNewFormatDate()', () => {
         let expectedOutput = "4-14-2021";
         chai.assert.equal(expectedOutput, res);
     });
-    it('the result 4-14-2021 if  date = 10/5/2021', () => {
+    it('the result 4-14-2021 if  date = 4-14-2021', () => {
         let res = convertOldToNewFormatDate(dataTestConvertOldToNewFormatDate.date3)
         let expectedOutput = "4-14-2021";
         chai.assert.equal(expectedOutput, res);
     });
-    it('the result 10/5/2021 if  date = 10/5/2021', () => {
+    it('the result null if  date = 10/5/2021', () => {
         let res = convertOldToNewFormatDate(dataTestConvertOldToNewFormatDate.date1)
         let expectedOutput = null;
         chai.assert.equal(expectedOutput, res);
     });
-    it('the result 2021/10/21 if  date = 10/5/2021', () => {
+    it('the result  date null if  date = 2021-13-14T02:56:07.073Z', () => {
+        let res = convertOldToNewFormatDate(dataTestConvertOldToNewFormatDate.date6)
+        let expectedOutput = "4-14-2021";
+        chai.assert.equal(expectedOutput, res);
+    });
+    it('the result  date null if  date = 2021-string-14T02:56:07.073Z', () => {
+        let res = convertOldToNewFormatDate(dataTestConvertOldToNewFormatDate.date7)
+        let expectedOutput = "4-14-2021";
+        chai.assert.equal(expectedOutput, res);
+    })
+    it('the result  date null if  date = 2021-04-32T02:56:07.073Z', () => {
+        let res = convertOldToNewFormatDate(dataTestConvertOldToNewFormatDate.date8)
+        let expectedOutput = "4-14-2021";
+        chai.assert.equal(expectedOutput, res);
+    })
+    it('the result  date null if  date = 2021-04-stringT02:56:07.073Z', () => {
+        let res = convertOldToNewFormatDate(dataTestConvertOldToNewFormatDate.date9)
+        let expectedOutput = "4-14-2021";
+        chai.assert.equal(expectedOutput, res);
+    })
+    it('the result null  if  date = 10/5/2021', () => {
         let res = convertOldToNewFormatDate(dataTestConvertOldToNewFormatDate.date2);
         let expectedOutput = null;
         chai.assert.equal(expectedOutput, res);
     });
-
-    it('the result 10112021 if  date = 10112021', () => {
+    it('the result null if  date = 10112021', () => {
         let res = convertOldToNewFormatDate(dataTestConvertOldToNewFormatDate.date4)
         let expectedOutput = null;
         chai.assert.equal(expectedOutput, res);
@@ -1068,6 +1132,11 @@ describe('function convertDisableDaysToEnglishDate()', () => {
     });
     it('the result [] if disableDays = ["202104-14T02:56:07.073Z"] wrong fomat date', () => {
         let res = convertDisableDaysToEnglishDate(dataTestConvertDisableDaysToEnglishDate.disableDays1).length;
+        let expectedOutput = 0;
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result [] if disableDays = ["2021-14-14T02:56:07.073Z"] wrong fomat date', () => {
+        let res = convertDisableDaysToEnglishDate(dataTestConvertDisableDaysToEnglishDate.disableDays2).length;
         let expectedOutput = 0;
         chai.assert.equal(expectedOutput, res)
     });
@@ -1128,45 +1197,321 @@ describe('function getMinimumdays', () => {
 });
 describe('function getCurentDate', () => {
     const clock = sinon.useFakeTimers(
-        new Date("Tue Apr 13 2021 00:00:00 GMT+0700 (Giờ Đông Dương)")
+        new Date("Tue Apr 13 2021 00:00:00 GMT+07:00 (Giờ Đông Dương)")
     );
-    // it(`the result is = ${new Date()} if fixedDay = new Date() ,timezone = "Default customer timezone"`, () => {
-    //     let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_EuropeLondon).getTime();
-    //     let expectedOutput = new Date().getTime();
-    //     chai.assert.equal(expectedOutput, res)
-    // });
-    // it(`the result is = ${new Date()} if fixedDay = new Date() ,timezone = "Europe/London"`, () => {
-    //     let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_EuropeLondon).getTime();
-    //     let expectedOutput = new Date().getTime();
-    //     chai.assert.equal(expectedOutput, res)
-    // });
-    // it(`the result is = ${new Date()} if fixedDay = new Date() ,timezone = ""`, () => {
-    //     let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_EuropeLondon).getTime();
-    //     let expectedOutput = new Date().getTime();
-    //     chai.assert.equal(expectedOutput, res)
-    // });
-    // it(`the result is = ${new Date()} if fixedDay = new Date() ,timezone = "Pacific/Niue: (GMT-11:00) Niue"`, () => {
-    //     let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_pacific_Niue);
-    //     console.log("res", res);
-    //     let expectedOutput = new Date().getTime();
-    //     chai.assert.equal(expectedOutput, res)
-    // });
-    // it(`the result is = ${new Date()} if fixedDay = new Date() ,timezone = "Pacific/Niue: (GMT-11:00) Niue"`, () => {
-    //     let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_pacific_Marquesas);
-    //     console.log("res", res);
-    //     let expectedOutput = new Date().getTime();
-    //     chai.assert.equal(expectedOutput, res)
-    // });
-    it(`the result is = ${new Date()} if fixedDay = new Date() ,timezone = "Pacific/Niue: (GMT-11:00) Niue"`, () => {
-        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_IndianCocos);
-        console.log("res", res);
-        let expectedOutput = new Date("Mon Apr 12 2021 23:30:00 GMT+0700 (Giờ Đông Dương)");
-        console.log("expectedOutput", expectedOutput);
+    it(`the result is = ${new Date()} if fixedDay = new Date() ,timezone = "Default customer timezone"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_EuropeLondon).getTime();
+        let expectedOutput = new Date().getTime();
         chai.assert.equal(expectedOutput, res)
     });
-    it(`the result is = ${new Date()} if fixedDay = new Date() ,timezone = "Pacific/Niue: (GMT-11:00) Niue"`, () => {
+    it(`the result is = ${new Date()} if fixedDay = new Date() ,timezone = "Europe/London"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_EuropeLondon).getTime();
+        let expectedOutput = new Date().getTime();
+        chai.assert.equal(expectedOutput, res)
+    });
+    it(`the result is = ${new Date()} if fixedDay = new Date() ,timezone = ""`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_EuropeLondon).getTime();
+        let expectedOutput = new Date().getTime();
+        chai.assert.equal(expectedOutput, res)
+    });
+    it(`the result Mon Apr 12 2021 06:00:00 GMT+0700 if fixedDay = new Date() ,timezone = "Pacific/Niue: (GMT-11:00) Niue"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_pacific_Niue).getTime();
+        let expectedOutput = new Date("Mon Apr 12 2021 06:00:00 GMT+0700").getTime();
+        chai.assert.equal(expectedOutput, res)
+    });
+
+    it(`the result Mon Apr 12 2021 07:00:00 GMT+0700 if fixedDay = new Date() ,timezone = "Pacific/Niue: (GMT-10:00) Niue"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_PacificHonolulu).getTime();
+        let expectedOutput = new Date("Mon Apr 12 2021 07:00:00 GMT+0700").getTime();
+        chai.assert.equal(expectedOutput, res);
+    });
+    it(`the result Mon Apr 12 2021 07:30:00 GMT+0700 if fixedDay = new Date() ,timezone = "Pacific/Marquesas": "(GMT-09:30) Marquesas"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_pacific_Marquesas).getTime();
+        let expectedOutput = new Date("Mon Apr 12 2021 07:30:00 GMT+0700").getTime();
+        chai.assert.equal(expectedOutput, res);
+    });
+    it(`the result Mon Apr 12 2021 12:30:00 GMT+0700 if fixedDay = new Date() ,timezone = "Pacific/Easter: (GMT-05:00) Easter Island"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_PacificEaster).getTime();
+        let expectedOutput = new Date("Mon Apr 12 2021 12:00:00 GMT+0700 (Indochina Time)").getTime();
+        chai.assert.equal(expectedOutput, res);
+    });
+
+    it(`the result Mon Apr 12 2021 12:30:00 GMT+0700 if fixedDay = new Date() ,timezone = "America/Caracas: (GMT-04:30) Caracas"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_AmericaCaracas).getTime();
+        let expectedOutput = new Date("Mon Apr 12 2021 12:30:00 GMT+0700").getTime();
+        chai.assert.equal(expectedOutput, res);
+    });
+    it(`the result Mon Apr 12 2021 17:00:00 GMT+0700 if fixedDay = new Date() ,timezone = "Atlantic/Faroe": "(GMT+00:00) Faeroe"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_AtlanticFaroe).getTime();
+        let expectedOutput = new Date("Mon Apr 12 2021 17:00:00 GMT+0700").getTime();
+        chai.assert.equal(expectedOutput, res);
+    });
+    it(`the result Mon Apr 12 2021 22:00:00 GMT+0700 if fixedDay = new Date() ,timezone = "Indian/Kerguelen: (GMT+05:00) Kerguelen"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_IndianKerguelen).getTime();
+        let expectedOutput = new Date("Mon Apr 12 2021 22:00:00 GMT+0700").getTime();
+        chai.assert.equal(expectedOutput, res);
+    });
+    it(`the result Mon Apr 12 2021 22:30:00 GMT+0700 if fixedDay = new Date() ,timezone = "Asia/Calcutta: (GMT+05:30) India Standard Time"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_AsiaCalcutta).getTime();
+        let expectedOutput = new Date("Mon Apr 12 2021 22:30:00 GMT+0700").getTime();
+        // kết quả trả về là 21:30
+        chai.assert.equal(expectedOutput, res, `result =${new Date(res)} `);
+    });
+    it(`the result Mon Apr 12 2021 23:00:00 GMT+0700 if fixedDay = new Date() ,timezone = "Indian/Chagos: (GMT+06:00) Chagos"`, () => {
         let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_IndianChagos).getTime();
-        let expectedOutput = new Date("Mon Apr 12 2021 23:00:00 GMT+0700 (Giờ Đông Dương)").getTime();
+        let expectedOutput = new Date("Mon Apr 12 2021 23:00:00 GMT+0700").getTime();
+        chai.assert.equal(expectedOutput, res);
+    });
+    it(`the result is = Mon Apr 12 2021 23:30:00 GMT+0700 (Giờ Đông Dương) if fixedDay = new Date() ,timezone = "Indian/Cocos: (GMT+06:30) Cocos"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_IndianCocos).getTime();
+        let expectedOutput = new Date("Mon Apr 12 2021 23:30:00 GMT+0700 (Giờ Đông Dương)").getTime();
+        chai.assert.equal(expectedOutput, res, `result =${new Date(res)} `)
+    });
+    it(`the result  Tue Apr 13 2021 01:00:00 GMT+07:00 (Giờ Đông Dương) if fixedDay = new Date() ,timezone = "Australia/Perth: (GMT+08:00) Western Time - Perth"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_AustraliaPerth).getTime();
+        let expectedOutput = new Date("Tue Apr 13 2021 01:00:00 GMT+07:00 (Giờ Đông Dương)").getTime();
         chai.assert.equal(expectedOutput, res)
     });
+    it(`the result  Tue Apr 13 2021 01:30:00 GMT+07:00 (Giờ Đông Dương) if fixedDay = new Date() ,timezone = "Asia/Pyongyang: (GMT+08:30) Pyongyang"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_AsiaPyongyang).getTime();
+        let expectedOutput = new Date("Tue Apr 13 2021 01:30:00 GMT+07:00 (Giờ Đông Dương)").getTime();
+        chai.assert.equal(expectedOutput, res, `result =${new Date(res)} `)
+    });
+    it(`the result  Tue Apr 13 2021 02:00:00 GMT+07:00 (Giờ Đông Dương) if fixedDay = new Date() ,timezone = "Pacific/Palau: (GMT+09:00) Palau"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_PacificPalau).getTime();
+        let expectedOutput = new Date("Tue Apr 13 2021 02:00:00 GMT+07:00 (Giờ Đông Dương)").getTime();
+        chai.assert.equal(expectedOutput, res)
+    });
+    it(`the result  Tue Apr 13 2021 02:30:00 GMT+07:00 (Giờ Đông Dương) if fixedDay = new Date() ,timezone = "Australia/Darwin: (GMT+09:30) Central Time - Darwin"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_AustraliaDarwin).getTime();
+        let expectedOutput = new Date("Tue Apr 13 2021 02:30:00 GMT+07:00 (Giờ Đông Dương)").getTime();
+        chai.assert.equal(expectedOutput, res, `result =${new Date(res)} `)
+    });
+    it(`the result  Tue Apr 13 2021 3:30:00 GMT+07:00 (Giờ Đông Dương) if fixedDay = new Date() ,timezone = "Australia/Adelaide: (GMT+10:30) Central Time - Adelaide"`, () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_AustraliaAdelaide).getTime();
+        let expectedOutput = new Date("Tue Apr 13 2021 03:30:00 GMT+07:00 (Giờ Đông Dương)").getTime();
+        chai.assert.equal(expectedOutput, res, `result =${new Date(res)} `)
+    });
+    it('the null if settings is number', () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataNumber).getTime();
+        let expectedOutput = null
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the null if settings is strings', () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataString.string).getTime();
+        let expectedOutput = null
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the null if settings.date_timezone_offset wrong fomat is number ', () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_number).getTime();
+        let expectedOutput = null
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the null if settings.date_timezone_offset wrong fomat is string ', () => {
+        let res = getCurrentDate(dataTestGetCurrentDate.fixedDay, dataTestGetCurrentDate.settings_date_timezone_number).getTime();
+        let expectedOutput = null
+        chai.assert.equal(expectedOutput, res)
+    });
+});
+// export const checkForUpdate = (newDate, settings, deliveryDate) => {
+
+describe('function checkforUpdate()', () => {
+    it('the result {"selectedDate":"04/22/2021","upadte":true} is   newDate: "04/22/2021", settings.kind_of_delivery_date = shortest, deliveryDate: "04/20/2021" ', () => {
+        let res = checkForUpdate(dataTestCheckForUpdate.newDate, dataTestCheckForUpdate.settings_kind_of_delivery_date_shortest, dataTestCheckForUpdate.deliveryDate)
+        let expectedOutput = '{"selectedDate":"04/22/2021","upadte":true}'
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result {"selectedDate":"04/22/2021","upadte":true} is   newDate = undefined, settings.kind_of_delivery_date = shortest, deliveryDate: "04/20/2021" ', () => {
+        let res = checkForUpdate(dataUnderfined, dataTestCheckForUpdate.settings_kind_of_delivery_date_shortest, dataTestCheckForUpdate.deliveryDate)
+        let expectedOutput = '{"upadte":false}'
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result {"upadte":false} is   newDate = -1, settings.kind_of_delivery_date = shortest, deliveryDate: "04/20/2021" ', () => {
+        let res = checkForUpdate(dataNumber, dataTestCheckForUpdate.settings_kind_of_delivery_date_shortest, dataTestCheckForUpdate.deliveryDate)
+        let expectedOutput = '{"upadte":false}'
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result {"upadte":false} is   newDate = string wrong format date, settings.kind_of_delivery_date = shortest, deliveryDate: "04/20/2021" ', () => {
+        let res = checkForUpdate(dataString.string, dataTestCheckForUpdate.settings_kind_of_delivery_date_shortest, dataTestCheckForUpdate.deliveryDate)
+        let expectedOutput = '{"upadte":false}'
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result {"upadte":false} is   newDate = number negative, settings.kind_of_delivery_date = shortest, deliveryDate: "04/20/2021" ', () => {
+        let res = checkForUpdate(dataNumberNegative, dataTestCheckForUpdate.settings_kind_of_delivery_date_shortest, dataTestCheckForUpdate.deliveryDate)
+        let expectedOutput = '{"upadte":false}'
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result {"upadte":false} is   newDate = number negative, settings.kind_of_delivery_date = shortest, deliveryDate is number', () => {
+        let res = checkForUpdate(dataTestCheckForUpdate.newDate, dataTestCheckForUpdate.settings_kind_of_delivery_date_shortest, dataNumber)
+        let expectedOutput = '{"upadte":false}'
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result {"upadte":false} is   newDate = number negative, settings.kind_of_delivery_date = shortest, deliveryDate is strings', () => {
+        let res = checkForUpdate(dataTestCheckForUpdate.newDate, dataTestCheckForUpdate.settings_kind_of_delivery_date_shortest, dataString.string)
+        let expectedOutput = '{"upadte":false}'
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result {"upadte":false} is   newDate = number negative, settings.kind_of_delivery_date = shortest, deliveryDate is negative', () => {
+        let res = checkForUpdate(dataTestCheckForUpdate.newDate, dataTestCheckForUpdate.settings_kind_of_delivery_date_shortest, dataNumberNegative)
+        let expectedOutput = '{"upadte":false}'
+        chai.assert.equal(expectedOutput, res)
+    });
+
+    it('the result {"selectedDate":"04/22/2021","upadte":true} is   newDate: "04/22/2021", settings.kind_of_delivery_date = longest, deliveryDate: "04/20/2021" ', () => {
+        let res = checkForUpdate(dataTestCheckForUpdate.newDate, dataTestCheckForUpdate.settings_kind_of_delivery_date_longtest, dataTestCheckForUpdate.deliveryDate)
+        let expectedOutput = '{"selectedDate":"04/22/2021","upadte":true}'
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result {"selectedDate":"04/22/2021","upadte":true} is   newDate = undefined, settings.kind_of_delivery_date = longest, deliveryDate: "04/20/2021" ', () => {
+        let res = checkForUpdate(dataUnderfined, dataTestCheckForUpdate.settings_kind_of_delivery_date_longtest, dataTestCheckForUpdate.deliveryDate)
+        let expectedOutput = '{"upadte":false}'
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result {"upadte":false} is   newDate = -1, settings.kind_of_delivery_date = longest, deliveryDate: "04/20/2021" ', () => {
+        let res = checkForUpdate(dataNumber, dataTestCheckForUpdate.settings_kind_of_delivery_date_longtest, dataTestCheckForUpdate.deliveryDate)
+        let expectedOutput = '{"upadte":false}'
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result {"upadte":false} is   newDate = string wrong format date, settings.kind_of_delivery_date = longest, deliveryDate: "04/20/2021" ', () => {
+        let res = checkForUpdate(dataString.string, dataTestCheckForUpdate.settings_kind_of_delivery_date_longtest, dataTestCheckForUpdate.deliveryDate)
+        let expectedOutput = '{"upadte":false}'
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result {"upadte":false} is   newDate = number negative, settings.kind_of_delivery_date = longest, deliveryDate: "04/20/2021" ', () => {
+        let res = checkForUpdate(dataNumberNegative, dataTestCheckForUpdate.settings_kind_of_delivery_date_longtest, dataTestCheckForUpdate.deliveryDate)
+        let expectedOutput = '{"upadte":false}'
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result {"upadte":false} is   newDate = number negative, settings.kind_of_delivery_date = longest, deliveryDate is number', () => {
+        let res = checkForUpdate(dataTestCheckForUpdate.newDate, dataTestCheckForUpdate.settings_kind_of_delivery_date_longtest, dataNumber)
+        let expectedOutput = '{"upadte":false}'
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result {"upadte":false} is   newDate = number negative, settings.kind_of_delivery_date = longest, deliveryDate is strings', () => {
+        let res = checkForUpdate(dataTestCheckForUpdate.newDate, dataTestCheckForUpdate.settings_kind_of_delivery_date_longtest, dataString.string)
+        let expectedOutput = '{"upadte":false}'
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result {"upadte":false} is   newDate = number negative, settings.kind_of_delivery_date = longest, deliveryDate is negative', () => {
+        let res = checkForUpdate(dataTestCheckForUpdate.newDate, dataTestCheckForUpdate.settings_kind_of_delivery_date_longtest, dataNumberNegative)
+        let expectedOutput = '{"upadte":false}'
+        chai.assert.equal(expectedOutput, res)
+    });
+});
+describe('function increaseDay()', () => {
+    it('the result  Fri Apr 16 2021 15:52:20 GMT+0700 (Giờ Đông Dương) if day is Thu Apr 15 2021 15:52:20 GMT+0700 (Giờ Đông Dương) ,time = 1', () => {
+        let res = increaseDay(dataTestIncreaseDay.day, dataTestIncreaseDay.time).getTime()
+        let expectedOutput = new Date("Fri Apr 16 2021 15:52:20 GMT+0700 (Giờ Đông Dương)").getTime();
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result  0 if day is Thu Apr 15 2021 15:52:20 GMT+0700 (Giờ Đông Dương) ,time = -1', () => {
+        let res = increaseDay(dataTestIncreaseDay.day, dataNumberNegative)
+        let expectedOutput = 0;
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result  0 if day is Thu Apr 15 2021 15:52:20 GMT+0700 (Giờ Đông Dương) ,time = strings', () => {
+        let res = increaseDay(dataTestIncreaseDay.day, dataString.string)
+        console.log("res", res);
+        let expectedOutput = null;
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result  0 if day is Thu Apr 15 2021 15:52:20 GMT+0700 (Giờ Đông Dương) ,time = datanumber BigInt', () => {
+        let res = increaseDay(dataTestIncreaseDay.day, dataNumber.bigInt)
+        let expectedOutput = 0;
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result  null if day =  Thu Apr 40 2021 00:00:00 GMT+0700 (Giờ Đông Dương),time = 1', () => {
+        let res = increaseDay(dataTestIncreaseDay.day1, dataTestIncreaseDay.time)
+        let expectedOutput = null;
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result  null if day = Thu Apr 40 2021 00:00:00 GMT+0700 (Giờ Đông Dương),time = -1', () => {
+        let res = increaseDay(dataTestIncreaseDay.day2, dataNumber.negative)
+        let expectedOutput = null;
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result  null if day = Thu Apr 40 2021 00:00:00 GMT+0700 (Giờ Đông Dương),time = strings', () => {
+        let res = increaseDay(dataTestIncreaseDay.day2, dataString.string)
+        let expectedOutput = null;
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result  null if day = Thu Apr 40 2021 00:00:00 GMT+0700 (Giờ Đông Dương),time = 9999999999', () => {
+        let res = increaseDay(dataTestIncreaseDay.day2, dataString.string)
+        let expectedOutput = null;
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result  Fri Apr 16 2021 00:00:00 GMT+0700 (Giờ Đông Dương) if day = 04/15/2021,time = 1', () => {
+        let res = increaseDay(dataTestIncreaseDay.day4, dataTestIncreaseDay.time).getTime();
+        let expectedOutput = new Date("04/16/2021").getTime();
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result  null if day = 04/15/2021,time = -1', () => {
+        let res = increaseDay(dataTestIncreaseDay.day4, dataNumber.negative)
+        let expectedOutput = null
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result  null if day = 04/15/2021,time = strings', () => {
+        let res = increaseDay(dataTestIncreaseDay.day4, dataString.string)
+        let expectedOutput = null
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result  null if day = 04/15/2021,time = 99999999999', () => {
+        let res = increaseDay(dataTestIncreaseDay.day4, dataNumber.bigInt)
+        let expectedOutput = null
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result  null if day = ("string/5/2010"),time = 1', () => {
+        let res = increaseDay(dataTestIncreaseDay.day6, dataTestIncreaseDay.time)
+        let expectedOutput = null
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the result  null if day = ("-1/5/2010"),time = 1', () => {
+        let res = increaseDay(dataTestIncreaseDay.day6, dataTestIncreaseDay.time)
+        let expectedOutput = null
+        chai.assert.equal(expectedOutput, res)
+    });
+});
+describe('function checkIsHoliday()', () => {
+    it('the res is true if date exits holidays', () => {
+        let res = checkIsHoliday(dataTestHoliday.date, dataTestHoliday.holidays)
+        let expectedOutput = true
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the res is false if date exits holidays', () => {
+        let res = checkIsHoliday(dataTestHoliday.date1, dataTestHoliday.holidays)
+        let expectedOutput = false
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the res is false if date is number', () => {
+        let res = checkIsHoliday(dataNumber, dataTestHoliday.holidays)
+        let expectedOutput = false
+        chai.assert.equal(expectedOutput, res)
+    });
+
+    it('the res is false if date is strings', () => {
+        let res = checkIsHoliday(dataString.string, dataTestHoliday.holidays)
+        let expectedOutput = false
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the res is false if date is negative', () => {
+        let res = checkIsHoliday(dataNumberNegative, dataTestHoliday.holidays)
+        let expectedOutput = false
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the res is false if holiday empty', () => {
+        let res = checkIsHoliday(dataNumberNegative, dataArrayEmpty)
+        let expectedOutput = false
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the res is false if holiday is Number', () => {
+        let res = checkIsHoliday(dataNumberNegative, dataNumber)
+        let expectedOutput = false
+        chai.assert.equal(expectedOutput, res)
+    });
+    it('the res is false if holiday is strings', () => {
+        let res = checkIsHoliday(dataNumberNegative, dataString.string)
+        let expectedOutput = false
+        chai.assert.equal(expectedOutput, res)
+    });
+
 });
