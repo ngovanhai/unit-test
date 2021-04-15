@@ -220,7 +220,6 @@ export const getListLimitedOrderDays = (totalOrders, settings) => {
         }
       }
     });
-
   }
   return disableDays;
 };
@@ -244,7 +243,7 @@ export const otFormatDate = (otDate) => {
   if (day.length < 2) day = "0" + day;
 
   return [year, month, day].join("-");
-}
+};
 export const convertOldToNewFormatDate = (date) => {
   if (date.indexOf("T") > -1) {
     let day = new Date(date).getDate();
@@ -253,7 +252,7 @@ export const convertOldToNewFormatDate = (date) => {
     return month + "-" + day + "-" + year;
   }
   return date;
-}
+};
 export const convertDisableDaysToEnglishDate = (disableDays) => {
   const convertDateToEnglish = (source) => {
     let result;
@@ -265,7 +264,6 @@ export const convertDisableDaysToEnglishDate = (disableDays) => {
     else return undefined;
   };
 
-
   let result = [];
   disableDays.map((disableDay) => {
     let convertResult = convertDateToEnglish(disableDay);
@@ -274,9 +272,15 @@ export const convertDisableDaysToEnglishDate = (disableDays) => {
     }
   });
   return result;
-}
+};
 
-export const getMinimumDays = (defaultMinDays, sameDayEnable, workingDay, currentDate, settings) => {
+export const getMinimumDays = (
+  defaultMinDays,
+  sameDayEnable,
+  workingDay,
+  currentDate,
+  settings
+) => {
   let min = defaultMinDays;
   let increasement = calcIncreaseDays(workingDay, currentDate);
   min = parseInt(min);
@@ -285,7 +289,7 @@ export const getMinimumDays = (defaultMinDays, sameDayEnable, workingDay, curren
   } else {
     return (min += increasement);
   }
-}
+};
 const calcIncreaseDays = (workingDay, currentDate) => {
   const currentDay = currentDate.getDay();
   const currentHour = currentDate.getHours();
@@ -293,9 +297,7 @@ const calcIncreaseDays = (workingDay, currentDate) => {
   const weekDay = workingDay.find(
     (day) =>
       (day.enable == 1 && day.day == currentDay) ||
-      (day.enable == 0 &&
-        day.specific_inc === "1" &&
-        day.day == currentDay)
+      (day.enable == 0 && day.specific_inc === "1" && day.day == currentDay)
   );
   if (!weekDay) return 0;
   const condition = weekDay.cut_off_after.split(":");
@@ -305,14 +307,13 @@ const calcIncreaseDays = (workingDay, currentDate) => {
     weekDay.enable != 1 ||
     (weekDay.enable == 0 && weekDay.specific_inc === "1") ||
     currentHour > conditionHour ||
-    (currentHour == conditionHour &&
-      currentMinute >= conditionMinute)
+    (currentHour == conditionHour && currentMinute >= conditionMinute)
   ) {
     return Number(weekDay.number_of_days_increases);
   } else {
     return 0;
   }
-}
+};
 export const getCurrentDate = (fixedDay, settings) => {
   const clock = sinon.useFakeTimers(
     new Date("Tue Apr 13 2021 00:00:00 GMT+07 00 (Giờ Đông Dương)")
@@ -320,7 +321,7 @@ export const getCurrentDate = (fixedDay, settings) => {
   let testFixedDay = new Date(fixedDay);
   let isFixedDayIsToday =
     new Date(testFixedDay.setHours(0, 0, 0, 0)).getTime() ===
-      new Date(new Date().setHours(0, 0, 0, 0)).getTime()
+    new Date(new Date().setHours(0, 0, 0, 0)).getTime()
       ? true
       : false;
   if (!isFixedDayIsToday) return fixedDay;
@@ -338,8 +339,7 @@ export const getCurrentDate = (fixedDay, settings) => {
       rawTimezone.lastIndexOf(")")
     );
     const timeGMTSplit = timeGMT.split("");
-    let hour =
-      Number(timeGMTSplit[3] + timeGMTSplit[4] + timeGMTSplit[5]) * -1;
+    let hour = Number(timeGMTSplit[3] + timeGMTSplit[4] + timeGMTSplit[5]) * -1;
     let minute = Number(timeGMTSplit[7] + timeGMTSplit[8]);
     if (minute === 30) minute = 0.5;
     const timezone = hour + minute;
@@ -352,7 +352,7 @@ export const getCurrentDate = (fixedDay, settings) => {
   let localTime = new Date().getTime();
   let exactTime = localTime - diffMilliSeconds;
   return new Date(exactTime);
-}
+};
 export const checkForUpdate = (newDate, settings, deliveryDate) => {
   let canUpdate = true;
   if (deliveryDate && newDate) {
@@ -374,14 +374,17 @@ export const checkForUpdate = (newDate, settings, deliveryDate) => {
     }
   }
   if (canUpdate) {
-    return JSON.stringify({ selectedDate: newDate, upadte: true })
+    return JSON.stringify({ selectedDate: newDate, upadte: true });
+  } else {
+    return JSON.stringify({ upadte: false });
   }
-  else {
-    return JSON.stringify({ upadte: false })
-  }
-}
+};
 
-export const calculateEndDay = (startDay, inputMaximumDays, comparison_Results) => {
+export const calculateEndDay = (
+  startDay,
+  inputMaximumDays,
+  comparison_Results
+) => {
   let endDay = startDay;
   let disableDays = [];
   let maximumDays = inputMaximumDays;
@@ -398,31 +401,26 @@ export const calculateEndDay = (startDay, inputMaximumDays, comparison_Results) 
     day: endDay,
     disableDays,
   });
-
-}
-
+};
 
 export const checkIsHoliday = (date, holidays) => {
   const currentTime = new Date(date.setHours(0, 0, 0, 0)).getTime();
-  console.log("currentTime", currentTime);
   return holidays.some(
     (holiday) =>
       new Date(
         convertOldToNewFormatDate(holiday.start_date) + " 00:00:00"
       ).getTime() <= currentTime &&
       currentTime <=
-      new Date(
-        convertOldToNewFormatDate(holiday.end_date) + " 23:59:59"
-      ).getTime()
+        new Date(
+          convertOldToNewFormatDate(holiday.end_date) + " 23:59:59"
+        ).getTime()
   );
-}
-export const checkIsDayOff = (date) => {
-  return this.workingDay.some(
-    (day) => day.day == date.getDay() && day.enable == 0
-  );
-}
+};
+export const checkIsDayOff = (date, workingDay) => {
+  return workingDay.some((day) => day.day == date.getDay() && day.enable == 0);
+};
 export const increaseDay = (day, time) => {
-
+  console.log("day", day);
   if (time > 0) {
     let d = new Date(day);
     d.setDate(d.getDate() + Number(time));
@@ -431,7 +429,4 @@ export const increaseDay = (day, time) => {
   } else {
     return 0;
   }
-}
-
-
-
+};

@@ -1,4 +1,3 @@
-
 export const dataString = {
   string: "string",
   specialCharacters: "hải,$.+*@^?/[]",
@@ -765,7 +764,7 @@ export const dataTestOtFomatDate = {
   date10: "string/13/-1",
   date11: "10/string/-1",
   date12: "10/10/string",
-}
+};
 export const dataTestConvertOldToNewFormatDate = {
   date1: "10/5/2021",
   date2: "2021/10/21",
@@ -776,353 +775,491 @@ export const dataTestConvertOldToNewFormatDate = {
   date7: "2021-string-14T02:56:07.073Z",
   date8: "2021-04-32T02:56:07.073Z",
   date9: "2021-04-stringT02:56:07.073Z",
-}
+};
 export const dataTestConvertDateToEnglish = {
   source: new Date("Sat Apr 25 2021 00:00:00 GMT+0700 (Indochina Time)"),
   source1: new Date("Sat Apr 25 2021 00:00:00 GMT+0700 (Indochina Time)"),
   settings1: {
-    calendar_language: "datepicker-cs"
+    calendar_language: "datepicker-cs",
   },
   settings_calendarLanguage_number: {
-    calendar_language: 1
+    calendar_language: 1,
   },
   settings_calendarLanguage_negative: {
-    calendar_language: -1
+    calendar_language: -1,
   },
   settings_calendarLanguage_wrongFomat: {
-    calendar_language: "strings"
-  }
-}
+    calendar_language: "strings",
+  },
+};
 export const dataTestConvertDisableDaysToEnglishDate = {
   disableDays: [new Date("2021-04-14T02:56:07.073Z")],
   disableDays1: [new Date("2021/04/14T02:56:07.073Z")],
   disableDays2: [new Date("2021/14/14T02:56:07.073Z")],
-}
+};
 export const dataTestGetMinimumDays = {
   defaultMinDays: 4,
   sameDayEnable: false,
   workingDay: [
-    { "enable": "1", "day": "0", "cut_off_after": "23:59", "number_of_days_increases": "1", "specific_inc": "0" },
-    { "enable": "1", "day": "1", "cut_off_after": "23:59", "number_of_days_increases": "1", "specific_inc": "0" },
-    { "enable": "1", "day": "2", "cut_off_after": "23:59", "number_of_days_increases": "1", "specific_inc": "0" },
-    { "enable": "1", "day": "3", "cut_off_after": "23:59", "number_of_days_increases": "1", "specific_inc": "0" },
-    { "enable": "1", "day": "4", "cut_off_after": "23:59", "number_of_days_increases": "1", "specific_inc": "0" },
-    { "enable": "1", "day": "5", "cut_off_after": "23:59", "number_of_days_increases": "1", "specific_inc": "0" },
-    { "enable": "1", "day": "6", "cut_off_after": "23:59", "number_of_days_increases": "1", "specific_inc": "0" }],
+    {
+      enable: "1",
+      day: "0",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "1",
+      day: "1",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "1",
+      day: "2",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "1",
+      day: "3",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "1",
+      day: "4",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "1",
+      day: "5",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "1",
+      day: "6",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+  ],
   workingDay2: [
-    { "enable": "1", "day": "0", "cut_off_after": "23:59", "number_of_days_increases": "1", "specific_inc": "0" },
-    { "enable": "1", "day": "1", "cut_off_after": "23:59", "number_of_days_increases": "1", "specific_inc": "0" },
-    { "enable": "1", "day": "2", "cut_off_after": "23:59", "number_of_days_increases": "1", "specific_inc": "0" },
-    { "enable": "0", "day": "3", "cut_off_after": "23:59", "number_of_days_increases": "1", "specific_inc": "1" },
-    { "enable": "1", "day": "4", "cut_off_after": "23:59", "number_of_days_increases": "1", "specific_inc": "0" },
-    { "enable": "1", "day": "5", "cut_off_after": "23:59", "number_of_days_increases": "1", "specific_inc": "0" },
-    { "enable": "1", "day": "6", "cut_off_after": "23:59", "number_of_days_increases": "1", "specific_inc": "0" }],
+    {
+      enable: "1",
+      day: "0",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "1",
+      day: "1",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "1",
+      day: "2",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "0",
+      day: "3",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "1",
+    },
+    {
+      enable: "1",
+      day: "4",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "1",
+      day: "5",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "1",
+      day: "6",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+  ],
   currentDate: new Date("Wed Apr 14 2021 15:10:24 GMT+0700 (Indochina Time)"),
   settings: {
-    enableCheckCutoffTime: 0
-  }
-}
+    enableCheckCutoffTime: 0,
+  },
+};
 export const dataTestGetCurrentDate = {
   fixedDay: new Date("Tue Apr 13 2021 00:00:00 GMT+07:00 (Giờ Đông Dương)"),
   settings_date_timezone_default: {
-    date_timezone_offset: "Default customer timezone"
+    date_timezone_offset: "Default customer timezone",
   },
   settings_date_timezone_EuropeLondon: {
-    date_timezone_offset: "Europe/London"
+    date_timezone_offset: "Europe/London",
   },
   settings_date_timezone_empty: {
-    date_timezone_offset: ""
+    date_timezone_offset: "",
   },
   settings_date_timezone_pacific_Niue: {
-    date_timezone_offset: "Pacific/Niue: (GMT-11:00) Niue"
+    date_timezone_offset: "Pacific/Niue: (GMT-11:00) Niue",
   },
   settings_date_timezone_PacificHonolulu: {
-    date_timezone_offset: "(GMT-10:00) Hawaii Time"
+    date_timezone_offset: "(GMT-10:00) Hawaii Time",
   },
 
   settings_date_timezone_PacificHonolulu: {
-    date_timezone_offset: "Pacific/Honolulu: (GMT-10:00) Hawaii Time"
+    date_timezone_offset: "Pacific/Honolulu: (GMT-10:00) Hawaii Time",
   },
   settings_date_timezone_pacific_Marquesas: {
-    date_timezone_offset: "Pacific/Marquesas: (GMT-09:30) Marquesas"
+    date_timezone_offset: "Pacific/Marquesas: (GMT-09:30) Marquesas",
   },
   settings_date_timezone_AmericaAnchorage: {
-    date_timezone_offset: "America/Anchorage: (GMT-09:00) Alaska Time"
+    date_timezone_offset: "America/Anchorage: (GMT-09:00) Alaska Time",
   },
   settings_date_timezone_AmericaTijuana: {
-    date_timezone_offset: "America/Tijuana: (GMT-08:00) Pacific Time - Tijuana"
+    date_timezone_offset: "America/Tijuana: (GMT-08:00) Pacific Time - Tijuana",
   },
   settings_date_timezone_PacificEaster: {
-    date_timezone_offset: "Pacific/Easter: (GMT-05:00) Easter Island"
+    date_timezone_offset: "Pacific/Easter: (GMT-05:00) Easter Island",
   },
   settings_date_timezone_AmericaCaracas: {
-    date_timezone_offset: "America/Caracas: (GMT-04:30) Caracas"
+    date_timezone_offset: "America/Caracas: (GMT-04:30) Caracas",
   },
   settings_date_timezone_AtlanticFaroe: {
-    date_timezone_offset: "Atlantic/Faroe: (GMT+00:00) Faeroe"
+    date_timezone_offset: "Atlantic/Faroe: (GMT+00:00) Faeroe",
   },
   settings_date_timezone_IndianKerguelen: {
-    date_timezone_offset: "Indian/Kerguelen: (GMT+05:00) Kerguelen"
+    date_timezone_offset: "Indian/Kerguelen: (GMT+05:00) Kerguelen",
   },
   settings_date_timezone_AsiaCalcutta: {
-    date_timezone_offset: "Asia/Calcutta: (GMT+05:30) India Standard Time"
+    date_timezone_offset: "Asia/Calcutta: (GMT+05:30) India Standard Time",
   },
   settings_date_timezone_IndianChagos: {
-    date_timezone_offset: "Indian/Chagos: (GMT+06:00) Chagos"
+    date_timezone_offset: "Indian/Chagos: (GMT+06:00) Chagos",
   },
   settings_date_timezone_IndianCocos: {
-    date_timezone_offset: "Indian/Cocos: (GMT+06:30) Cocos"
+    date_timezone_offset: "Indian/Cocos: (GMT+06:30) Cocos",
   },
   settings_date_timezone_AustraliaPerth: {
-    date_timezone_offset: "Australia/Perth: (GMT+08:00) Western Time - Perth"
+    date_timezone_offset: "Australia/Perth: (GMT+08:00) Western Time - Perth",
   },
   settings_date_timezone_AsiaPyongyang: {
-    date_timezone_offset: "Asia/Pyongyang: (GMT+08:30) Pyongyang"
+    date_timezone_offset: "Asia/Pyongyang: (GMT+08:30) Pyongyang",
   },
 
   settings_date_timezone_PacificPalau: {
-    date_timezone_offset: "Pacific/Palau: (GMT+09:00) Palau"
+    date_timezone_offset: "Pacific/Palau: (GMT+09:00) Palau",
   },
   settings_date_timezone_AustraliaAdelaide: {
-    date_timezone_offset: "Australia/Adelaide: (GMT+10:30) Central Time - Adelaide"
+    date_timezone_offset:
+      "Australia/Adelaide: (GMT+10:30) Central Time - Adelaide",
   },
   settings_date_timezone_AustraliaDarwin: {
-    date_timezone_offset: "Australia/Darwin: (GMT+09:30) Central Time - Darwin"
+    date_timezone_offset: "Australia/Darwin: (GMT+09:30) Central Time - Darwin",
   },
   settings_date_timezone_number: {
-    date_timezone_offset: 1
+    date_timezone_offset: 1,
   },
   settings_date_timezone_strings: {
-    date_timezone_offset: "string : string"
+    date_timezone_offset: "string : string",
   },
-}
+};
 export const DataCalculateEndDay = {
   startDay: new Date("Thu Apr 22 2021 00:00:00 GMT+0700 (Indochina Time)"),
   maximumDays: 300,
   maximumDays1: 0,
-}
+};
 export const dataTestCheckForUpdate = {
   // (newDate, settings, deliveryDate)
   newDate: "04/22/2021",
   deliveryDate: "04/20/2021",
   settings_kind_of_delivery_date_shortest: {
-    kind_of_delivery_date: "shortest"
+    kind_of_delivery_date: "shortest",
   },
   settings_kind_of_delivery_date_longtest: {
-    kind_of_delivery_date: "longest"
-  }
-}
+    kind_of_delivery_date: "longest",
+  },
+};
 export const DataTestCheckIsDayOff = {
   day1: new Date("Thu Apr 22 2021 00:00:00 GMT+0700 (Giờ Đông Dương)"),
-
+  day2: new Date("Thu Apr 32 2021 00:00:00 GMT+0700 (Giờ Đông Dương)"),
+  day3: new Date("Thu Apr -1 2021 00:00:00 GMT+0700 (Giờ Đông Dương)"),
   workingDayDisableAllWeek: [
     {
-      "enable": "0",
-      "day": "0",
-      "cut_off_after": "23:59",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "0",
+      day: "0",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "0",
-      "day": "1",
-      "cut_off_after": "23:59",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "0",
+      day: "1",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "0",
-      "day": "2",
-      "cut_off_after": "23:59",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "0",
+      day: "2",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "0",
-      "day": "3",
-      "cut_off_after": "23:59",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "0",
+      day: "3",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "0",
-      "day": "4",
-      "cut_off_after": "23:59",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "0",
+      day: "4",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "0",
-      "day": "5",
-      "cut_off_after": "23:59",
-      "number_of_days_increases": "3",
-      "specific_inc": '0'
+      enable: "0",
+      day: "5",
+      cut_off_after: "23:59",
+      number_of_days_increases: "3",
+      specific_inc: "0",
     },
     {
-      "enable": "0",
-      "day": "6",
-      "cut_off_after": "23:59",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
-    }
+      enable: "0",
+      day: "6",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
   ],
-
+  workingDayEndableThursday: [
+    {
+      enable: "0",
+      day: "0",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "0",
+      day: "1",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "0",
+      day: "2",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "0",
+      day: "3",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "1",
+      day: "4",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+    {
+      enable: "0",
+      day: "5",
+      cut_off_after: "23:59",
+      number_of_days_increases: "3",
+      specific_inc: "0",
+    },
+    {
+      enable: "0",
+      day: "6",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
+  ],
   workingDayEnableAllWeekWithCutoff: [
     {
-      "enable": "1",
-      "day": "0",
-      "cut_off_after": "00:01",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "1",
+      day: "0",
+      cut_off_after: "00:01",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "1",
-      "day": "1",
-      "cut_off_after": "00:01",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "1",
+      day: "1",
+      cut_off_after: "00:01",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "1",
-      "day": "2",
-      "cut_off_after": "00:01",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "1",
+      day: "2",
+      cut_off_after: "00:01",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "1",
-      "day": "3",
-      "cut_off_after": "00:01",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "1",
+      day: "3",
+      cut_off_after: "00:01",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "1",
-      "day": "4",
-      "cut_off_after": "00:01",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "1",
+      day: "4",
+      cut_off_after: "00:01",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "1",
-      "day": "5",
-      "cut_off_after": "00:01",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "1",
+      day: "5",
+      cut_off_after: "00:01",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "1",
-      "day": "6",
-      "cut_off_after": "00:01",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
-    }
+      enable: "1",
+      day: "6",
+      cut_off_after: "00:01",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
   ],
 
   workingDayEnableAllWeekNoCutoff: [
     {
-      "enable": "1",
-      "day": "0",
-      "cut_off_after": "23:59",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "1",
+      day: "0",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "1",
-      "day": "1",
-      "cut_off_after": "23:59",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "1",
+      day: "1",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "1",
-      "day": "2",
-      "cut_off_after": "23:59",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "1",
+      day: "2",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "1",
-      "day": "3",
-      "cut_off_after": "23:59",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "1",
+      day: "3",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "1",
-      "day": "4",
-      "cut_off_after": "23:59",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
+      enable: "1",
+      day: "4",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
     },
     {
-      "enable": "1",
-      "day": "5",
-      "cut_off_after": "23:59",
-      "number_of_days_increases": "3",
-      "specific_inc": '0'
+      enable: "1",
+      day: "5",
+      cut_off_after: "23:59",
+      number_of_days_increases: "3",
+      specific_inc: "0",
     },
     {
-      "enable": "1",
-      "day": "6",
-      "cut_off_after": "23:59",
-      "number_of_days_increases": "1",
-      "specific_inc": '0'
-    }
+      enable: "1",
+      day: "6",
+      cut_off_after: "23:59",
+      number_of_days_increases: "1",
+      specific_inc: "0",
+    },
   ],
 
   workingDayDisableAllWeekWithSpecificIncrease: [
     {
-      "enable": "0",
-      "day": "0",
-      "cut_off_after": "00:01",
-      "number_of_days_increases": "1",
-      "specific_inc": '1'
+      enable: "0",
+      day: "0",
+      cut_off_after: "00:01",
+      number_of_days_increases: "1",
+      specific_inc: "1",
     },
     {
-      "enable": "0",
-      "day": "1",
-      "cut_off_after": "00:01",
-      "number_of_days_increases": "1",
-      "specific_inc": '1'
+      enable: "0",
+      day: "1",
+      cut_off_after: "00:01",
+      number_of_days_increases: "1",
+      specific_inc: "1",
     },
     {
-      "enable": "0",
-      "day": "2",
-      "cut_off_after": "00:01",
-      "number_of_days_increases": "1",
-      "specific_inc": '1'
+      enable: "0",
+      day: "2",
+      cut_off_after: "00:01",
+      number_of_days_increases: "1",
+      specific_inc: "1",
     },
     {
-      "enable": "0",
-      "day": "3",
-      "cut_off_after": "00:01",
-      "number_of_days_increases": "1",
-      "specific_inc": '1'
+      enable: "0",
+      day: "3",
+      cut_off_after: "00:01",
+      number_of_days_increases: "1",
+      specific_inc: "1",
     },
     {
-      "enable": "0",
-      "day": "4",
-      "cut_off_after": "00:01",
-      "number_of_days_increases": "1",
-      "specific_inc": '1'
+      enable: "0",
+      day: "4",
+      cut_off_after: "00:01",
+      number_of_days_increases: "1",
+      specific_inc: "1",
     },
     {
-      "enable": "0",
-      "day": "5",
-      "cut_off_after": "00:01",
-      "number_of_days_increases": "3",
-      "specific_inc": '1'
+      enable: "0",
+      day: "5",
+      cut_off_after: "00:01",
+      number_of_days_increases: "3",
+      specific_inc: "1",
     },
     {
-      "enable": "0",
-      "day": "6",
-      "cut_off_after": "00:01",
-      "number_of_days_increases": "1",
-      "specific_inc": '1'
-    }
-  ]
-}
+      enable: "0",
+      day: "6",
+      cut_off_after: "00:01",
+      number_of_days_increases: "1",
+      specific_inc: "1",
+    },
+  ],
+};
 export const dataTestIncreaseDay = {
   day: new Date("Thu Apr 15 2021 15:52:20 GMT+0700 (Giờ Đông Dương)"),
   day1: new Date("Thu Apr 40 2021 00:00:00 GMT+0700 (Giờ Đông Dương)"),
@@ -1132,8 +1269,8 @@ export const dataTestIncreaseDay = {
   day5: new Date("-1/5/2010"),
   day6: new Date("strings/5/2010"),
   day7: new Date("10/-1/2010"),
-
-}
+  time: 1,
+};
 
 export const dataTestCalculateEndDay = {
   // startDay, inputMaximumDays, comparison_Results
@@ -1141,11 +1278,24 @@ export const dataTestCalculateEndDay = {
   inputMaximumDays: 10,
   comparisonResultsTrue: true,
   comparisonResultsFalse: false,
-
-}
+};
 export const dataTestHoliday = {
   date1: new Date("Thu Apr 22 2021 00:00:00 GMT+0700 (Giờ Đông Dương)"),
   date: new Date("Thu Apr 15 2021 15:52:20 GMT+0700 (Giờ Đông Dương)"),
-  holidays: [{ "id": "1", "shop": "ngo-van-hai.myshopify.com", "title": "New Holiday", "start_date": "Thu Apr 15 2021", "end_date": "April 03, 2021" },
-  { "id": "2", "shop": "ngo-van-hai.myshopify.com", "title": "hai holiday", "start_date": "April 14, 2021", "end_date": "May 20, 2021" }]
-}
+  holidays: [
+    {
+      id: "1",
+      shop: "ngo-van-hai.myshopify.com",
+      title: "New Holiday",
+      start_date: "Thu Apr 15 2021",
+      end_date: "April 03, 2021",
+    },
+    {
+      id: "2",
+      shop: "ngo-van-hai.myshopify.com",
+      title: "hai holiday",
+      start_date: "April 14, 2021",
+      end_date: "May 20, 2021",
+    },
+  ],
+};
