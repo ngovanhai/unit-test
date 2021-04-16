@@ -1187,14 +1187,14 @@ export const dataTestHoliday = {
       shop: "ngo-van-hai.myshopify.com",
       title: "New Holiday",
       start_date: "Thu Apr 15 2021",
-      end_date: "April 03, 2021",
+      end_date: "Fri Apr 16 2021",
     },
     {
       id: "2",
       shop: "ngo-van-hai.myshopify.com",
       title: "hai holiday",
       start_date: "April 14, 2021",
-      end_date: "May 20, 2021",
+      end_date: "Fri Apr 16 2021",
     },
   ],
 };

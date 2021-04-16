@@ -321,7 +321,7 @@ export const getCurrentDate = (fixedDay, settings) => {
   let testFixedDay = new Date(fixedDay);
   let isFixedDayIsToday =
     new Date(testFixedDay.setHours(0, 0, 0, 0)).getTime() ===
-    new Date(new Date().setHours(0, 0, 0, 0)).getTime()
+      new Date(new Date().setHours(0, 0, 0, 0)).getTime()
       ? true
       : false;
   if (!isFixedDayIsToday) return fixedDay;
@@ -411,9 +411,9 @@ export const checkIsHoliday = (date, holidays) => {
         convertOldToNewFormatDate(holiday.start_date) + " 00:00:00"
       ).getTime() <= currentTime &&
       currentTime <=
-        new Date(
-          convertOldToNewFormatDate(holiday.end_date) + " 23:59:59"
-        ).getTime()
+      new Date(
+        convertOldToNewFormatDate(holiday.end_date) + " 23:59:59"
+      ).getTime()
   );
 };
 export const checkIsDayOff = (date, workingDay) => {

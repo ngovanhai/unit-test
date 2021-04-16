@@ -117,7 +117,7 @@ describe("function minimumDays() class FormProduct", () => {
     let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
   });
-  it("The resultult returns null if currentProduct is Strings", () => {
+  it("The resultult returns null if specificProducts is Strings", () => {
     const res = minimumDays(
       dataString.string,
       dataTestMiniMumdayAndMaximumDay.currentProduct,
@@ -137,9 +137,81 @@ describe("function minimumDays() class FormProduct", () => {
     let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
   });
+
+  it("The resultult returns null if currentProduct is Number, specificProducts is Strings", () => {
+    const res = minimumDays(
+      dataString.string,
+      dataNumber.interger,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  })
+
+  it("The resultult returns null if currentProduct is Number, specificProducts is interger", () => {
+    const res = minimumDays(
+      dataString.string,
+      dataNumber.interger,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  })
+  it("The resultult returns null if currentProduct is Number, specificProducts is interger", () => {
+    const res = minimumDays(
+      dataNumber.interger,
+      dataNumber.interger,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  })
+  it("The resultult returns null if currentProduct is Number, specificProducts is neagtive", () => {
+    const res = minimumDays(
+      dataNumber.negative,
+      dataNumber.interger,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  })
   it("The resultult returns null if currentProduct is Strings", () => {
     const res = minimumDays(
       dataTestMiniMumdayAndMaximumDay.specificProducts,
+      dataString.string,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if currentProduct is Strings ,specificProducts is strings", () => {
+    const res = minimumDays(
+      dataString.string,
+      dataString.string,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if currentProduct is Strings ,specificProducts is interger", () => {
+    const res = minimumDays(
+      dataNumber.interger,
+      dataString.string,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if currentProduct is Strings ,specificProducts is negative", () => {
+    const res = minimumDays(
+      dataNumber.negative,
       dataString.string,
       dataTestMiniMumdayAndMaximumDay.productCollections,
       dataTestMiniMumdayAndMaximumDay.specificCollections
@@ -157,10 +229,70 @@ describe("function minimumDays() class FormProduct", () => {
     let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
   });
+  it("The resultult returns null if currentProduct is emptyArray,specificProducts is interger", () => {
+    const res = minimumDays(
+      dataNumber.interger,
+      dataArrayEmpty,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if currentProduct is emptyArray,specificProducts is negative", () => {
+    const res = minimumDays(
+      dataNumber.negative,
+      dataArrayEmpty,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if currentProduct is emptyArray,specificProducts is strings", () => {
+    const res = minimumDays(
+      dataNumber.negative,
+      dataArrayEmpty,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
   it("The resultult returns null if specificProducts.minimumday is Strings", () => {
     const res = minimumDays(
       dataTestMiniMumdayAndMaximumDay.specificProductsMinimumDaysString,
       dataTestMiniMumdayAndMaximumDay.currentProduct,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if specificProducts.minimumday is Strings,curentProducts is strings", () => {
+    const res = minimumDays(
+      dataTestMiniMumdayAndMaximumDay.specificProductsMinimumDaysString,
+      dataString.string,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if specificProducts.minimumday is Strings,curentProducts is interger", () => {
+    const res = minimumDays(
+      dataTestMiniMumdayAndMaximumDay.specificProductsMinimumDaysString,
+      dataNumber.interger,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if specificProducts.minimumday is Strings,curentProducts is negative", () => {
+    const res = minimumDays(
+      dataTestMiniMumdayAndMaximumDay.specificProductsMinimumDaysString,
+      dataNumber.negative,
       dataTestMiniMumdayAndMaximumDay.productCollections,
       dataTestMiniMumdayAndMaximumDay.specificCollections
     );
@@ -177,10 +309,69 @@ describe("function minimumDays() class FormProduct", () => {
     let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
   });
+  it("The resultult returns null if specificProducts.minimumday is Negative curentProducts is strings", () => {
+    const res = minimumDays(
+      dataTestMiniMumdayAndMaximumDay.specificProductsMinimumDaysIsNegative,
+      dataString.string,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if specificProducts.minimumday is Negative curentProducts is negative", () => {
+    const res = minimumDays(
+      dataTestMiniMumdayAndMaximumDay.specificProductsMinimumDaysIsNegative,
+      dataNumber.negative,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  }); it("The resultult returns null if specificProducts.minimumday is Negative curentProducts is interger", () => {
+    const res = minimumDays(
+      dataTestMiniMumdayAndMaximumDay.specificProductsMinimumDaysIsNegative,
+      dataNumber.interger,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
   it("The resultult returns null if  specificProducts empty and productCollections is string", () => {
     const res = minimumDays(
       dataArrayEmpty,
       dataTestMiniMumdayAndMaximumDay.currentProduct,
+      dataString.string,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if  specificProducts empty and productCollections is string,currentProduct is Strings", () => {
+    const res = minimumDays(
+      dataArrayEmpty,
+      dataString.string,
+      dataString.string,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if  specificProducts empty and productCollections is string,currentProduct is interger", () => {
+    const res = minimumDays(
+      dataArrayEmpty,
+      dataNumber.interger,
+      dataString.string,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if  specificProducts empty and productCollections is string,currentProduct is negative", () => {
+    const res = minimumDays(
+      dataArrayEmpty,
+      dataNumber.negative,
       dataString.string,
       dataTestMiniMumdayAndMaximumDay.specificCollections
     );
@@ -197,6 +388,36 @@ describe("function minimumDays() class FormProduct", () => {
     let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
   });
+  it("The resultult returns null if  specificProducts empty and  productCollections is number,currentProduct is Strings", () => {
+    const res = minimumDays(
+      dataArrayEmpty,
+      dataString.string,
+      dataNumber.interger,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if  specificProducts empty and  productCollections is number,currentProduct is interger", () => {
+    const res = minimumDays(
+      dataArrayEmpty,
+      dataNumber.interger,
+      dataNumber.interger,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if  specificProducts empty and  productCollections is number,currentProduct is neagtive", () => {
+    const res = minimumDays(
+      dataArrayEmpty,
+      dataNumber.negative,
+      dataNumber.interger,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
   it("The resultult returns null if productCollections is emptyArray", () => {
     const res = minimumDays(
       dataArrayEmpty,
@@ -205,6 +426,47 @@ describe("function minimumDays() class FormProduct", () => {
       dataTestMiniMumdayAndMaximumDay.specificCollections
     );
     let expectedOutput = -1;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if productCollections is emptyArray", () => {
+    const res = minimumDays(
+      dataArrayEmpty,
+      dataTestMiniMumdayAndMaximumDay.currentProduct,
+      dataArrayEmpty,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = -1;
+    chai.assert.equal(expectedOutput, res);
+  });
+
+  it("The resultult returns -1 if specificProduct is Empty , specificCollections is empty", () => {
+    const res = minimumDays(
+      dataTestMiniMumdayAndMaximumDay.specificProductsEmpty,
+      dataTestMiniMumdayAndMaximumDay.currentProduct,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataArrayEmpty
+    );
+    let expectedOutput = -1;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if specificProduct is Empty , specificCollections is strings", () => {
+    const res = minimumDays(
+      dataTestMiniMumdayAndMaximumDay.specificProductsEmpty,
+      dataTestMiniMumdayAndMaximumDay.currentProduct,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataString.string
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if specificProduct is Empty , specificCollections is negative", () => {
+    const res = minimumDays(
+      dataTestMiniMumdayAndMaximumDay.specificProductsEmpty,
+      dataTestMiniMumdayAndMaximumDay.currentProduct,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataNumber.negative
+    );
+    let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
   });
 });
@@ -252,7 +514,6 @@ describe("function maximumDays() class FormProduct", () => {
     let expectedOutput = 10;
     chai.assert.equal(expectedOutput, res);
   });
-  let productCollectionsNotExitsSpecificCollections = [238612971692];
   it("The resultult returns -1 if specificProducts Empty productCollections not exits specificCollections", () => {
     const res = maximumDays(
       dataTestMiniMumdayAndMaximumDay.specificProductsEmpty,
@@ -274,10 +535,62 @@ describe("function maximumDays() class FormProduct", () => {
     let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
   });
+  it("The resultult returns null if specificProducts is Strings currentProduct is strings", () => {
+    const res = minimumDays(
+      dataString.string,
+      dataString.string,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if specificProducts is Strings currentProduct is interger", () => {
+    const res = minimumDays(
+      dataString.string,
+      dataNumber.interger,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+
+  it("The resultult returns null if specificProducts is Strings currentProduct is negative", () => {
+    const res = minimumDays(
+      dataString.string,
+      dataNumber.negative,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+
   it("The resultult returns null if specificProducts is Number", () => {
     const res = minimumDays(
       dataNumber.interger,
       dataTestMiniMumdayAndMaximumDay.currentProduct,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if specificProducts is Number,currentProduct is interger", () => {
+    const res = minimumDays(
+      dataNumber.interger,
+      dataNumber.interger,
+      dataTestMiniMumdayAndMaximumDay.productCollections,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if specificProducts is Number,currentProduct is interger", () => {
+    const res = minimumDays(
+      dataNumber.interger,
+      dataNumber.negative,
       dataTestMiniMumdayAndMaximumDay.productCollections,
       dataTestMiniMumdayAndMaximumDay.specificCollections
     );
@@ -354,6 +667,36 @@ describe("function maximumDays() class FormProduct", () => {
     let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
   });
+  it("The resultult returns null if  specificProducts empty and productCollections is string , currentProduct is strings", () => {
+    const res = minimumDays(
+      dataArrayEmpty,
+      dataString.string,
+      dataString.string,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if  specificProducts empty and productCollections is string , currentProduct is interger", () => {
+    const res = minimumDays(
+      dataArrayEmpty,
+      dataNumber.interger,
+      dataString.string,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if  specificProducts empty and productCollections is string , currentProduct is negative", () => {
+    const res = minimumDays(
+      dataArrayEmpty,
+      dataNumber.negative,
+      dataString.string,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
   it("The resultult returns null if  specificProducts empty and  productCollections is number", () => {
     const res = minimumDays(
       dataArrayEmpty,
@@ -364,6 +707,38 @@ describe("function maximumDays() class FormProduct", () => {
     let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
   });
+  it("The resultult returns null if  specificProducts empty and  productCollections is interfer", () => {
+    const res = minimumDays(
+      dataArrayEmpty,
+      dataNumber.interger,
+      dataNumber.interger,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("The resultult returns null if  specificProducts empty and  productCollections is strings", () => {
+    const res = minimumDays(
+      dataArrayEmpty,
+      dataString.string,
+      dataNumber.interger,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+
+  it("The resultult returns null if  specificProducts empty and  productCollections is negative", () => {
+    const res = minimumDays(
+      dataArrayEmpty,
+      dataNumber.negative,
+      dataNumber.interger,
+      dataTestMiniMumdayAndMaximumDay.specificCollections
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+
   it("The resultult returns null if productCollections is emptyArray", () => {
     const res = minimumDays(
       dataArrayEmpty,
@@ -1805,6 +2180,7 @@ describe("function checkIsHoliday()", () => {
   });
   it("the result is false if date not exits holidays", () => {
     let res = checkIsHoliday(dataTestHoliday.date1, dataTestHoliday.holidays);
+    console.log("res", res);
     let expectedOutput = false;
     chai.assert.equal(expectedOutput, res);
   });
