@@ -1240,6 +1240,39 @@ describe("function getMinimumdays", () => {
     let expectedOutput = 4;
     chai.assert.equal(expectedOutput, res);
   });
+  it('the resultult 5 if defaultMinDays = 4 ,all day workingDay ,currentDate = new Date("Wed Apr 14 2021 15:10:24 GMT+0700 (Indochina Time)"),enableCheckCutoffTime = -1,', () => {
+    let res = getMinimumDays(
+      dataTestGetMinimumDays.defaultMinDays,
+      dataTestGetMinimumDays.sameDayEnable,
+      dataTestGetMinimumDays.workingDay,
+      dataTestGetMinimumDays.currentDate,
+      dataNumberNegative
+    );
+    let expectedOutput = 5;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it('the resultult 5 if defaultMinDays = 4 ,all day workingDay ,currentDate = new Date("Wed Apr 14 2021 15:10:24 GMT+0700 (Indochina Time)"),enableCheckCutoffTime = string,', () => {
+    let res = getMinimumDays(
+      dataTestGetMinimumDays.defaultMinDays,
+      dataTestGetMinimumDays.sameDayEnable,
+      dataTestGetMinimumDays.workingDay,
+      dataTestGetMinimumDays.currentDate,
+      dataString.string
+    );
+    let expectedOutput = 5;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it('the resultult 5 if defaultMinDays = 4 ,all day workingDay ,currentDate = new Date("Wed Apr 14 2021 15:10:24 GMT+0700 (Indochina Time)"),enableCheckCutoffTime = 999999999999999999,', () => {
+    let res = getMinimumDays(
+      dataTestGetMinimumDays.defaultMinDays,
+      dataTestGetMinimumDays.sameDayEnable,
+      dataTestGetMinimumDays.workingDay,
+      dataTestGetMinimumDays.currentDate,
+      dataNumber.bigInt
+    );
+    let expectedOutput = 5;
+    chai.assert.equal(expectedOutput, res);
+  });
   it('the resultult 5 if defaultMinDays = 4 ,1 day not workingDay and Specific inc = 1 and Inc = 1 ,currentDate = new Date("Wed Apr 14 2021 15:10:24 GMT+0700 (Indochina Time)"),', () => {
     let res = getMinimumDays(
       dataTestGetMinimumDays.defaultMinDays,
@@ -1824,10 +1857,26 @@ describe("function checkIsDayOff()", () => {
     let expectedOutput = false;
     chai.assert.equal(expectedOutput, res);
   });
+  it("the result is false if date in workingDay , day in workingDay endable is negative ", () => {
+    let res = checkIsDayOff(
+      DataTestCheckIsDayOff.day1,
+      DataTestCheckIsDayOff.workingDayEndableNegative
+    );
+    let expectedOutput = false;
+    chai.assert.equal(expectedOutput, res);
+  });
   it("the result is null if date = Thu Apr 32 2021 00:00:00 GMT+0700 (Giờ Đông Dương) wrong fomat date ,workingDay =  workingDayDisableAllWeek", () => {
     let res = checkIsDayOff(
       DataTestCheckIsDayOff.day2,
       DataTestCheckIsDayOff.workingDayDisableAllWeek
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("the result is null if date = Thu Apr 32 2021 00:00:00 GMT+0700 (Giờ Đông Dương) wrong fomat date ,enable in workingday is negavtive", () => {
+    let res = checkIsDayOff(
+      DataTestCheckIsDayOff.day2,
+      DataTestCheckIsDayOff.workingDayEndableNegative
     );
     let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
@@ -1840,6 +1889,14 @@ describe("function checkIsDayOff()", () => {
     let expectedOutput = true;
     chai.assert.equal(expectedOutput, res);
   });
+  it("the result is null if date = Thu Apr -1 2021 00:00:00 GMT+0700 (Giờ Đông Dương) wrong fomat date ,enable in workingday is negavtive", () => {
+    let res = checkIsDayOff(
+      DataTestCheckIsDayOff.day3,
+      DataTestCheckIsDayOff.workingDayEndableNegative
+    );
+    let expectedOutput = true;
+    chai.assert.equal(expectedOutput, res);
+  });
   it("the result is null if date is number wrong fomat date ,workingDay =  workingDayDisableAllWeek", () => {
     let res = checkIsDayOff(
       dataNumber,
@@ -1848,10 +1905,26 @@ describe("function checkIsDayOff()", () => {
     let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
   });
+  it("the result is null if date is number wrong fomat date ,enable in workingday is negavtive", () => {
+    let res = checkIsDayOff(
+      dataNumber,
+      DataTestCheckIsDayOff.workingDayEndableNegative
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
   it("the result is null if date is strings wrong fomat date ,workingDay =  workingDayDisableAllWeek", () => {
     let res = checkIsDayOff(
       dataString.string,
       DataTestCheckIsDayOff.workingDayDisableAllWeek
+    );
+    let expectedOutput = null;
+    chai.assert.equal(expectedOutput, res);
+  });
+  it("the result is null if date is strings wrong fomat date, enable in workingday is negavtive", () => {
+    let res = checkIsDayOff(
+      dataString.string,
+      DataTestCheckIsDayOff.workingDayEndableNegative
     );
     let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
@@ -1871,12 +1944,4 @@ describe("function checkIsDayOff()", () => {
     let expectedOutput = null;
     chai.assert.equal(expectedOutput, res);
   });
-  //   it("the result is true if date in workingDayDisableAllWeek", () => {
-  //     let res = checkIsDayOff(
-  //       DataTestCheckIsDayOff.day1,
-  //       DataTestCheckIsDayOff.workingDayDisableAllWeek
-  //     );
-  //     let expectedOutput = false;
-  //     chai.assert.equal(expectedOutput, res);
-  //   });
 });
